@@ -1,0 +1,22 @@
+.section1 .jumbotron {
+    height: 400px;
+}
+
+.section2 img.circular {
+    width: 256px !important;
+    height: 256px !important;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.section3 img.circular {
+    width: 192px !important;
+    height: 192px !important;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.section5 img {
+    width: 64px;
+    height: 64px;
+}

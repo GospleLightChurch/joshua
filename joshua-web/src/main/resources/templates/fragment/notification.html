@@ -1,0 +1,24 @@
+<!--
+消息框基本组件，用于显示网站通知消息
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+</head>
+
+<body>
+<!-- 全局消息框基本组件，用于显示在每个页面导航栏下部，如果没有全局消息，或者全局消息已经过期，则不显示整个组件 -->
+<div th:fragment="global">
+    <p>全局消息正在实现当中</p>
+</div>
+
+<!-- 局部消息框基本组件，用于和用户产生交互时的消息框 -->
+<div th:fragment="dynamic">
+    <p>局部正在实现当中</p>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

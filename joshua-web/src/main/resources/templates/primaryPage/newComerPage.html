@@ -1,0 +1,57 @@
+<!--
+一级页面 - 新人页面基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- 基本组件等待定义 -->
+<div th:fragment="component" class="ui grid">
+    <div class="twelve wide column">
+        <h1>我是新人</h1>
+        <div class="ui rounded fluid image">
+            <img src="../../public/assets/images/meta/4.jpg" th:src="@{/assets/images/meta/4.jpg}" style="width: 640px; height: 230px"/>
+        </div>
+        <p>关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍,关于新人噼里啪啦的一段介绍。</p>
+
+        <h2>我们的聚会</h2>
+        <p>Our Sunday meetings start at 9.30 am and again at 11.30 am. King's Arms Later runs three out of four weeks at 7 pm. We have ample parking and there will be stewards to assist you with parking.
+
+            Our meetings are relaxed and informal. Our main aim is to encounter God and learn how to follow Jesus better – anything that helps us do that is in! During the services we want to express our love to God, so individuals often pray or sing out loud, raise their hands or tell us what they think God is saying to us.
+
+            We've all had the 'first Sunday in church' experience and know what it's like. No one is put under pressure to do anything they feel uncomfortable with, and you don't need to know the songs or anything about the Bible to fit right in. If you'd like to know someone when you arrive, then contact our welcome team in advance and they will meet you at the door!</p>
+        <p>Children have their own activities during the morning service in our King’s Kids groups, which are designed for children from 0 to 11 years old.
+
+            Teenagers also have Sunday morning groups called RIOT (School years 7 to 9) and Innovation (School years 9 to 13). We believe that people of all ages should have an opportunity to learn about God their own way in a safe, fun and friendly environment.
+
+            Why not pop into our welcome lounge after the meeting where one of our friendly team are looking forward to helping with any questions you may have.</p>
+        <p>
+            It's hard to get to know people in a crowd. That is why smaller groups are critical and we encourage everyone across the church family to be connected with a group. We have two main types of groups: missional communities (MC) and life groups (LG). Visit our groups page for more info and to sign up.
+
+            We also host a number of events throughout each month.
+        </p>
+
+        <h2>探索基督</h2>
+        <p>If you would like to find out more about the Christian faith, then you are invited to our Alpha course. Alpha is an opportunity to discuss the faith in a relaxed setting with other people who are exploring spirituality.
+
+        </p>
+
+        <h2>了解更多</h2>
+        <p>If you’d like to find out about the next Joining King's Arms course, click here. These courses are great for finding out more about who we are and what we do and discovering ways you can connect with the church.
+
+        </p>
+    </div>
+    <div class="four wide column">
+        <div th:replace="fragment/navigation :: secondary"></div>
+    </div>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

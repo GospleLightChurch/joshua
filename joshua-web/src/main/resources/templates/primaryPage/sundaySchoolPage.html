@@ -1,0 +1,47 @@
+<!--
+一级页面 - 主日学页面基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- 基本组件等待定义 -->
+<div th:fragment="component" class="ui grid">
+    <div class="twelve wide column">
+        <h1>主日学</h1>
+        <div class="ui rounded fluid image">
+            <img src="../../public/assets/images/meta/4.jpg" th:src="@{/assets/images/meta/4.jpg}" style="width: 640px; height: 230px"/>
+        </div>
+
+        <h2>主日学介绍</h2>
+        <p>
+            光音堂主日学于2014年3月正式开课，目前有24位侍奉的老师。目前共有幼儿班、中级班、高小班、青年班、大学班和长者班6个班级上课。 课程设置是以学生的品格塑造和技能提升而设置。学习以课堂面授、游戏、户外远足、营会等丰富形式，让学生们在这个学堂有难忘的快乐时光和灵命上丰富的收获。
+        </p>
+
+        <h2>主日学规则</h2>
+        <p>
+            愿意参加主日学侍奉具体的条件是：<br/>
+            1.在主日学侍奉的老师，肩负对学生们灵命塑造的职责，需要是信仰坚定的基督徒；<br/>
+            2.由于主日学工作包括事前备课、主日课堂宣讲、主日灵修及老师专业技能提升等要求，该侍奉岗位需要对参与侍奉的老师时间和精力投入较多。在属灵上需要每周第一堂参加主日崇拜，第二堂主日学侍奉，每月第一周主日下午参加灵修，每月第三周主日下午参加老师技能培训。事务性会议另外安排。参与侍奉的老师需要时间上能满足以上要求，有特殊情况可以请假<br/>
+            本着生命影响生命的原则，老师们需要有对学生们有爱心、有耐心，愿意付出的感动，并且通过团队灵修不断灵命成长。
+        </p>
+
+        <h2>如何加入</h2>
+        <p>
+            有感动并满足条件的弟兄姊妹先与负责人联系，并先参与助教工作，通过老师培训后，可以担任上课职能。
+        </p>
+    </div>
+    <div class="four wide column">
+        <div th:replace="fragment/navigation :: secondary"></div>
+    </div>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js" ></script>
+</body>
+</html>

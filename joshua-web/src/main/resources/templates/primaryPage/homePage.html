@@ -1,0 +1,354 @@
+<!--
+一级页面 - 首页基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+    <link href="../../websrc/css/home.css" rel="stylesheet"/>
+</head>
+
+<body>
+<!-- 活动大图组件 -->
+<section th:fragment="section1" class="ui grid section1">
+    <div class="large screen only row">
+        <div class="column">
+            <div class="ui black inverted huge message page grid center aligned jumbotron">
+                <h1 class="ui inverted huge header">欢迎来到基督教光音堂</h1>
+                <p>神爱世人、甚至将他的独生子赐给他们、叫一切信他的、不至灭亡、反得永生。 约翰福音 3:16</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 用户分流组件 -->
+<section th:fragment="section2" class="ui grid section2">
+    <div class="centered row">
+        <div class="ui fade reveal">
+            <div class="visible content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/placeholder.png" th:src="@{/assets/images/placeholder.png}"/>
+                </a>
+            </div>
+            <div class="hidden content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+            </div>
+        </div>
+        <div class="ui fade reveal">
+            <div class="visible content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/placeholder.png" th:src="@{/assets/images/placeholder.png}"/>
+                </a>
+            </div>
+            <div class="hidden content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+            </div>
+        </div>
+        <div class="ui fade reveal">
+            <div class="visible content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/placeholder.png" th:src="@{/assets/images/placeholder.png}"/>
+                </a>
+            </div>
+            <div class="hidden content">
+                <a> <img class="ui medium circular image"
+                         src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 六图介绍组件 -->
+<section th:fragment="section3" class="ui stackable grid container section3">
+    <div class="six wide column">
+        <h2>教堂简介</h2>
+        <p>成都高新区基督教光音堂位于成都市高新区天府一街888号（天府一街剑南大道口），是有芬兰设计师设计，典型的北欧简约风格。
+            教堂于2013年10月13日开始聚会。教堂之所以叫光音堂是因为设计师在对教堂的设计上充分运用“光”和“声音”的元素。教堂被称为“光之教堂”，钟楼叫“天使之音”；
+            “光之教堂”四壁和屋顶都用黑色墙体，使教堂显得庄严而神圣，教堂内正面墙上一副宽9米，高7米的写意画被称为“创造之光”，由芬兰画家精心构思创作，将上帝在起初从空虚混沌渊面黑暗中创造出光与自然、生命的大能尽显出来。
+            教堂大门右侧墙上是充分运用光的原理而设计建造的“森林之光”，当太阳光打在玻璃墙上时，户外大树与铸铁管的映像耀然其上，使人仿佛置身于大自然，吮吸大自然的气息和雨露，使人有心旷神怡之感。</p>
+        <a class="ui green button">了解更多</a>
+    </div>
+    <div class="ten wide column">
+        <div class="ui three column doubling grid">
+            <div class="centered row">
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+            </div>
+            <div class="centered row">
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+                <div class="ui fade reveal">
+                    <div class="visible content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/placeholder.png"
+                                 th:src="@{/assets/images/placeholder.png}"/>
+                        </a>
+                    </div>
+                    <div class="hidden content">
+                        <a> <img class="ui medium circular image"
+                                 src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"/> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新消息组件 -->
+<section th:fragment="section4" class="ui two column stackable grid">
+    <div class="ui horizontal divider">教堂资讯</div>
+    <div class="column">
+        <div class="ui raised segment">
+            <h4 class="ui header" th:utext="#{home.section4.message.title}">最新消息</h4>
+            <div class="ui items">
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">本周主日讲道内容已经火热出炉</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月4日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">10万+</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">暑假夏令营圆满成功</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月3日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">500++</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">内江关爱留守儿童活动成功结束</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月2日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">13</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">2016年8月见证分享会报名中</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月1日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">8000+</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="ui raised segment">
+            <h4 class="ui header" th:utext="#{home.section4.activity.title}">教会活动</h4>
+            <div class="ui items">
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">罗马书第三课即将开始</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月4日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">10万+</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">一粒麦子查经小组招募弟兄姊妹</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月3日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">500++</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">本月最后一周为见证分享会</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月2日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">13</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="ui small image">
+                        <img src="../../public/assets/images/placeholder.png"
+                             th:src="@{/assets/images/placeholder.png}"/>
+                    </a>
+                    <div class="content">
+                        <a class="header">祷告会欢迎弟兄姊妹参加</a>
+                        <div class="meta"><i class="calendar icon"></i> <span>2016年8月1日</span></div>
+                        <div class="description">
+                            起初　神创造天地。地是空虚混沌．渊面黑暗．　神的灵运行在水面上。神说、要有光、就有了光。神看光是好的、就把光暗分开了。神称光为昼、称暗为夜．有晚上、有早晨、这是头一日。
+                        </div>
+                        <div class="extra"><i class="like icon"></i><span class="right floated">8000+</span><i
+                                class="right floated user icon"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 媒体资源组件 -->
+<section th:fragment="section5" class="ui grid section5">
+    <div class="ui horizontal divider">媒体资源</div>
+    <div class="ui centered green card">
+        <div class="content">
+            <img class="right floated ui image" src="../../public/assets/images/placeholder.png"
+                 th:src="@{/assets/images/placeholder.png}"/>
+            <div class="header">荣耀的帮助者</div>
+            <div class="meta"><i class="user icon"></i> <span>作者：（美）珀尔</span></div>
+            <div class="description">
+                明白尊重和荣耀丈夫便是荣耀上帝，从而享受奇妙美好的婚姻。
+            </div>
+            <div class="ui horizontal hidden divider"></div>
+            <div class="extra content">
+                <div class="ui green button fluid">在线阅读</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui centered orange card">
+        <div class="content">
+            <img class="right floated ui image" src="../../public/assets/images/placeholder.png"
+                 th:src="@{/assets/images/placeholder.png}"/>
+            <div class="header">你真配得赞美</div>
+            <div class="meta"><i class="user icon"></i> <span>歌手：	小羊诗歌</span></div>
+            <div class="description">
+                太阳不足彰颢祢光辉
+                蓝天装不下祢的意念
+                繁星数不尽祢的恩典
+                群山无以表明祢威严
+            </div>
+            <div class="ui horizontal hidden divider"></div>
+            <div class="extra content">
+                <div class="ui orange button fluid">在线试听</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui centered orange card">
+        <div class="content">
+            <img class="right floated ui image" src="../../public/assets/images/placeholder.png"
+                 th:src="@{/assets/images/placeholder.png}"/>
+            <div class="header">如鹰展翅上腾</div>
+            <div class="meta"><i class="user icon"></i> <span>歌手：	生命河灵粮堂</span></div>
+            <div class="description">
+                神已听见我的呼求
+                祂也明白我的渴望
+                放下重担 脱去一切缠累
+                恢复神造我的荣美形象
+            </div>
+            <div class="ui horizontal hidden divider"></div>
+            <div class="extra content">
+                <div class="ui orange button fluid">在线试听</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

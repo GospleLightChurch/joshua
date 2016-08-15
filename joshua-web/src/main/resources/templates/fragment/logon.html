@@ -1,0 +1,45 @@
+<!--
+用户注册基本组件，用于注册页面
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+    <link rel="stylesheet" href="../../../websrc/css/nav.css"/>
+</head>
+
+<body>
+<!-- 用户注册组件 -->
+<div th:fragment="logon">
+    <!--<div class="overlay"></div>-->
+    <div class="login-content">
+
+        <!--logo-->
+        <div class="login-logo">
+            <img class="logo" src="../../public/assets/images/logo.gif" alt="基督教光音堂" />
+        </div>
+        <form class="ui fluid form segment">
+            <div class="field">
+                <label th:utext="#{nav.username}">用户名</label>
+                <input type="text" />
+            </div>
+            <div class="field">
+                <label th:utext="#{nav.email}">邮箱</label>
+                <input type="email" />
+            </div>
+            <div class="field">
+                <label th:utext="#{nav.password}">密码</label>
+                <input type="password"/>
+            </div>
+            <div class="inline field login-btn">
+                <button class="ui blue submit button" th:utext="#{nav.logon}">注册 </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

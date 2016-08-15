@@ -1,0 +1,24 @@
+<!--
+HTML 头部基本组件，用于每个页面的头部引用
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- 基本组件标识 -->
+<head th:fragment="head">
+
+    <!--/* 定义默认字符编码 */-->
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--/* 定义页面标题，如果页面为定义标题，则使用默认标题 */-->
+    <title th:text="${#strings.isEmpty(title)} ? #{title} : ${title}"></title>
+
+    <!--/* 页面图标 */-->
+    <link th:href="@{/assets/images/favicon.gif}" rel="icon"/>
+
+    <!--/* 统一CSS样式引用 */-->
+    <link th:href="@{/assets/css/joshua.min.css}" rel="stylesheet"/>
+</head>
+</html>

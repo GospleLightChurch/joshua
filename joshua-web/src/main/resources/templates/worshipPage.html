@@ -1,0 +1,27 @@
+<!--
+一级页面 - 主日崇拜
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment/header :: head">
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- 页面容器 -->
+<div class="ui container">
+    <!-- 引用主要导航栏组件，同样，元素里面的内容仅供内地调试使用，实际在服务器中会被主要导航栏组件替换掉，以下同理 -->
+    <div th:replace="fragment/navigation :: primary">导航栏</div>
+
+    <!-- 引用对应组件内容 -->
+    <div th:replace="primaryPage/worshipPage :: component"></div>
+</div>
+
+<!--/* 引用页脚组件 */-->
+<div th:replace="fragment/footer :: footer">页脚</div>
+<script src="../public/assets/js/joshua.min.js" th:src="@{/assets/js/joshua.min.js}"></script>
+</body>
+</html>

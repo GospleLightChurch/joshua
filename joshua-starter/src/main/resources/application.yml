@@ -2,7 +2,10 @@
 # spring configuration
 #
 server:
-  port: 80
+  port: 1013
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,application/javascript,text/html,text/xml,text/plain,text/css,image/gif,image/jpeg,image/png,image/bmp
 
 spring:
   application:
@@ -24,7 +27,13 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
   messages:
-    basename: i18n/messages
+    basename: i18n/messages, i18n/navigation, i18n/primaryPage
+  resources:
+    cache-period: 31536000
+    chain:
+      strategy:
+        content:
+          enabled: true
 
 #
 # loggin configuration
@@ -34,4 +43,4 @@ logging.level.org.springframework.web: ERROR
 logging.level.org.hibernate: ERROR
 logging.level.org.gyt.web: DEBUG
 logging:
-  file: /var/opt/log/gyt/web/joshua.log
+  file: /var/opt/log/joshua/joshua.log

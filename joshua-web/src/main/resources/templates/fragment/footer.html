@@ -1,0 +1,49 @@
+<!--
+HTML 页脚基本组件，用于每个页面的末尾引用
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+    <link rel="stylesheet" href="../../websrc/css/footer.css"/>
+</head>
+
+<body>
+<!-- 页脚组件，用于页面末尾的导航栏 -->
+<footer th:fragment="footer" class="ui black inverted vertical segment footer">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted grid">
+            <div class="six wide left aligned column">
+                <h4 class="ui inverted header" th:utext="#{nav.footer.contact}">联系我们</h4>
+                <div class="ui inverted link list">
+                    <div class="item"><span th:utext="#{nav.footer.contact.address}">地址：</span><span>成都市高新区天府一街886号</span></div>
+                    <div class="item"><span th:utext="#{nav.footer.contact.telephone}">电话：</span> 028-85179217</div>
+                    <div class="item"><span th:utext="#{nav.footer.contact.email}">邮箱：</span> cdgyt2013@163.com</div>
+                    <div class="item"><span th:utext="#{nav.footer.contact.postcode}">邮编：</span> 610041</div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header" th:utext="#{nav.footer.links}">友情链接</h4>
+                <div class="ui inverted link list">
+                    <a class="item" href="http://www.ccctspm.org" target="_blank">中国基督教网站</a>
+                    <a class="item" href="http://sc.jdjh.org" target="_blank">四川基督教</a>
+                </div>
+            </div>
+            <div class="seven wide right floated column">
+                <h4 class="ui inverted orange header" th:utext="#{nav.footer.wechat}">微信公众号</h4>
+                <img src="../../public/assets/images/SQCode.jpg" th:src="@{/assets/images/SQCode.jpg}"
+                     style="width: 96px;height: 96px"/>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <div class="ui horizontal inverted small divided link list">
+            <a class="item" th:utext="#{title}">基督教光音堂</a>
+        </div>
+    </div>
+</footer>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

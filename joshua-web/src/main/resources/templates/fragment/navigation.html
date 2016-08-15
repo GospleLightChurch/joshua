@@ -1,0 +1,134 @@
+<!--
+导航栏基本组件，用于每个页面
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+    <link rel="stylesheet" href="../../../websrc/css/nav.css"/>
+</head>
+<body>
+
+<!-- 主要导航栏，用于页面最顶部的导航栏 -->
+<nav th:fragment="primary" id="menu" class="ui secondary menu">
+    <!--/* 教堂LOGO */-->
+    <div class="item">
+        <a href="/" th:href="@{/}">
+            <img src="../../public/assets/images/logo.gif" th:src="@{/assets/images/logo.gif}"
+                 style="width: 128px;height: 128px"/>
+        </a>
+    </div>
+
+    <!--/* 光音堂导航 */-->
+    <div class="ui dropdown item inverted green button">
+        <span th:utext="#{nav.gyt.title}">光音堂</span>
+        <div class="menu">
+            <a class="item" th:href="@{/about}" th:utext="#{nav.gyt.intro}">教堂简介</a>
+            <a class="item" th:href="@{/believe}" th:utext="#{nav.gyt.christian}">基督信仰</a>
+            <a class="item" th:href="@{/pastor}" th:utext="#{nav.gyt.poster}">主任牧师</a>
+            <a class="item" th:href="@{/contact}" th:utext="#{nav.gyt.contact}">联系我们</a>
+        </div>
+    </div>
+
+    <!--/* 信仰生活导航 */-->
+    <div class="ui dropdown item inverted green button">
+        <span th:utext="#{nav.believe.title}">信仰生活</span>
+        <div class="menu">
+            <a class="item" th:href="@{/newcomer}" th:utext="#{nav.believe.newcommer}">新人</a>
+            <a class="item" th:href="@{/worship}" th:utext="#{nav.believe.worship}">主日崇拜</a>
+            <a class="item" th:href="@{/group}" th:utext="#{nav.believe.group}">团契生活</a>
+            <a class="item" th:href="@{/sunday}" th:utext="#{nav.believe.sundayschool}">主日学</a>
+        </div>
+    </div>
+
+    <!--/* 主内服侍导航 */-->
+    <div class="ui dropdown item inverted green button">
+        <span th:utext="#{nav.service.title}">主内服侍</span>
+        <div class="menu">
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.chord}">唱诗班</a>
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.firstlove}">初爱敬拜赞美</a>
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.voice}">音控组</a>
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.video}">摄像组</a>
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.gosple}">福音大使</a>
+            <a class="item" th:href="@{/}" th:utext="#{nav.service.visit}">探访组</a>
+        </div>
+    </div>
+
+    <!--/* 认识基督导航 */-->
+    <div class="ui dropdown item inverted green button">
+        <span th:utext="#{nav.knowChrist.title}">认识基督</span>
+        <div class="menu">
+            <a class="item" th:href="@{/testimony}" th:utext="#{nav.knowChrist.sharing}">见证奉献</a>
+            <a class="item" th:href="@{/recommend}" th:utext="#{nav.knowChrist.article}">好文推荐</a>
+            <a class="item" th:href="@{/media}" th:utext="#{nav.knowChrist.media}">媒体资源</a>
+        </div>
+    </div>
+
+    <!--/* 家事园地导航 */-->
+    <div class="ui dropdown item inverted green button">
+        <span th:utext="#{nav.home.title}">家事园地</span>
+        <div class="menu">
+            <a class="item" th:href="@{/preach}" th:utext="#{nav.home.preach}">每周讲道</a>
+            <a class="item" th:href="@{/report}" th:utext="#{nav.home.report}">事工报告</a>
+            <a class="item" th:href="@{/bible}" th:utext="#{nav.home.bible}">在线圣经</a>
+            <a class="item" th:href="@{/financial}" th:utext="#{nav.home.financial}">财务报告</a>
+            <a class="item" th:href="@{/wedding}" th:utext="#{nav.home.wedding}">教堂婚礼</a>
+        </div>
+    </div>
+
+    <!--/* 右侧菜单 */-->
+    <div class="right menu">
+        <!--/* 搜索 */-->
+        <div class="item">
+            <div class="ui input focus icon">
+                <input class="search" type="text" th:placeholder="#{nav.search}"/>
+                <i class="circular search link icon"></i>
+            </div>
+        </div>
+
+        <!--/* 登陆注册 */-->
+        <div class="item">
+            <a class="ui inverted blue button" th:href="@{/login}" th:utext="#{nav.login}">登录</a>
+            <a class="ui inverted blue button" th:href="@{/logon}" th:utext="#{nav.logon}">注册</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 次要导航栏，用于二级页面侧边导航栏 -->
+<div th:fragment="secondary">
+    <!-- 侧导航 -->
+    <div class="ui vertical menu">
+        <div class="item">
+            <div class="ui input focus icon">
+                <input class="search" type="text" placeholder="Search..."/>
+                <i class="circular search link icon"></i>
+            </div>
+        </div>
+        <a class="item">光音堂 </a>
+        <a class="item">聚会时间 </a>
+        <div class="item">教堂简介
+            <div class="menu">
+                <a class="active item">基督信仰</a>
+                <a class="item">财务报告</a>
+                <a class="item">事工报告</a>
+                <a class="item">联系我们</a>
+            </div>
+        </div>
+        <div class="item">团契活动
+            <div class="menu">
+                <a class="active item">青年团契</a>
+                <a class="item">夫妻团契</a>
+                <a class="item">未婚团契</a>
+                <a class="item">蒙恩团契</a>
+                <a class="item">长者团契</a>
+            </div>
+        </div>
+        <a class="item">留言板</a>
+
+    </div>
+</div>
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

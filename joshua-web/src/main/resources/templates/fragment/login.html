@@ -1,0 +1,53 @@
+<!--
+用户登陆基本组件，用于登陆页面
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>基督教光音堂</title>
+
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+    <link rel="stylesheet" href="../../../websrc/css/nav.css"/>
+</head>
+
+<body>
+<!-- 用户登录组件 -->
+<div th:fragment="login">
+    <!-- 登录页面设置 -->
+    <div class="overlay"></div>
+    <div class="login-content">
+
+        <!--logo-->
+        <div class="login-logo">
+            <img class="logo" src="../../public/assets/images/logo.gif" alt="基督教光音堂" />
+        </div>
+        <form id="login" class="ui fluid form segment">
+            <div class="field">
+                <label  th:utext="#{nav.username}">用户名</label>
+                <div class="ui left icon input">
+                    <input type="text" name="userName" placeholder="用户名/邮箱/手机"/>
+                    <i class="user icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label  th:utext="#{nav.password}">密码</label>
+                <div class="ui left icon input">
+                    <input type="password" name="password" placeholder="密码"/>
+                    <i class="lock icon"></i>
+                </div>
+            </div>
+            <div class="ui checkbox">
+                <input type="checkbox" tabindex="0" name="terms" />
+                <label>下次自动登录</label>
+            </div>
+            <a href="" class="fotpass" name="terms" >忘记密码</a>
+            <div class="inline field login-btn">
+                <button class="ui blue submit button" th:utext="#{nav.login}">登录 </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

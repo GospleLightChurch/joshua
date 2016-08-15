@@ -1,0 +1,30 @@
+<!--
+留言消息基本组件，用于用户网站留言
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+    <link rel="stylesheet" href="../../websrc/css/message.css"/>
+</head>
+
+<body>
+<!-- 全局消息框基本组件，用于显示在每个页面导航栏下部，如果没有全局消息，或者全局消息已经过期，则不显示整个组件 -->
+<div th:fragment="primary">
+    <div class="ui comments">
+        <div class="content">
+            <form class="ui reply form">
+                <div class="field">
+                    <textarea></textarea>
+                </div>
+                <div class="ui primary submit labeled icon button"><i class="icon edit" th:utext="#{nav.message}"></i> 留言 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

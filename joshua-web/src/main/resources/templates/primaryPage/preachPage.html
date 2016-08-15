@@ -1,0 +1,43 @@
+<!--
+一级页面 - 每周讲道页面基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- 基本组件等待定义 -->
+<div th:fragment="component" class="ui grid">
+    <div class="twelve wide column">
+        <h1>每周讲道</h1>
+        <div class="ui rounded fluid image">
+            <img src="../../public/assets/images/meta/psbe.jpg" th:src="@{/assets/images/meta/psbe.jpg}" style="width:600px; height:400px" />
+        </div>
+        <p>关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍关于每周讲道的介绍</p>
+        <h2>关于主题</h2>
+        <p>Children have their own activities during the morning service in our King’s Kids groups, which are designed for children from 0 to 11 years old.
+
+            Teenagers also have Sunday morning groups called RIOT (School years 7 to 9) and Innovation (School years 9 to 13). We believe that people of all ages should have an opportunity to learn about God their own way in a safe, fun and friendly environment.
+
+            Why not pop into our welcome lounge after the meeting where one of our friendly team are looking forward to helping with any questions you may have.</p>
+        <p>
+            It's hard to get to know people in a crowd. That is why smaller groups are critical and we encourage everyone across the church family to be connected with a group. We have two main types of groups: missional communities (MC) and life groups (LG). Visit our groups page for more info and to sign up.
+
+            We also host a number of events throughout each month.
+        </p>
+        <h2>查看更多</h2>
+        <p>You can view the full discipleship booklet below, check it out in the King's Arms app or pick up your own hard copy from the bookstore on any Sunday.</p>
+    </div>
+    <div class="four wide column">
+        <div th:replace="fragment/navigation :: secondary"></div>
+    </div>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js" ></script>
+</body>
+</html>
