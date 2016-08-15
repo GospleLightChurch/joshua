@@ -16,10 +16,22 @@
     <div class="ui comments">
         <div class="content">
             <form class="ui reply form">
+                <div class="ui mini form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>邮箱</label>
+                            <input placeholder="joe@schmoe.com" type="email">
+                        </div>
+                        <div class="field">
+                            <label>手机</label>
+                            <input placeholder="手机号" type="text">
+                        </div>
+                    </div>
+                </div>
                 <div class="field">
                     <textarea></textarea>
                 </div>
-                <div class="ui primary submit labeled icon button"><i class="icon edit" th:utext="#{nav.message}"></i> 留言 </div>
+                <div class="ui primary submit labeled icon button"><i class="icon edit" ></i> 留言 </div>
             </form>
         </div>
     </div>
