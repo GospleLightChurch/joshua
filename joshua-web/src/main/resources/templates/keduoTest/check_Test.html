@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../websrc/css/semantic.css">
+    <title> CheckBox 与 modal 用法混合练习</title>
+</head>
+<body>
+<div class="ui horizontal divider"></div>
+<div class="ui left aligned container">
+    <h1>标题</h1>
+    <div class="ui list">
+            <div class="item">
+                <div class="ui checkbox" id="item1">
+                    <input type="checkbox">
+                    <label id="LAitem1">项目一</label>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui checkbox" id="item2">
+                    <input type="checkbox">
+                    <label id="LAitem2">项目二</label>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui checkbox" id="item3">
+                    <input type="checkbox">
+                    <label id="LAitem3">项目三</label>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui checkbox" id="item4">
+                    <input type="checkbox" align="left">
+                    <label id="LAitem4">项目四</label>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui checkbox" id="item5">
+                    <input type="checkbox">
+                    <label id="LAitem5">项目五</label>
+                </div>
+            </div>
+            <div class="ui hidden horizontal divider"></div>
+            <button class="ui button" id="allAccept">全选</button>
+            <button class="ui button" id="allRefuse">全不选</button>
+            <button class="ui button" id="cancel">反选</button>
+
+            <div class="ui small modal">
+                <div class="header">Change the ItemName</div>
+                <div class="content">
+                    <div class="ui left icon input fluid">
+                        <input  id="txtModify" type="text"   placeholder="Change item">
+                        <i class="pointing right icon"></i>
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui ok button">Modify</div>
+                    <div class="ui cancel button">Cancel</div>
+                </div>
+            </div>
+
+            <script src="../../websrc/js/jquery.js"></script>
+            <script src="../../websrc/js/semantic.js"></script>
+            <script>
+                $("#allAccept").click(function () {
+                    $(".ui .checkbox").checkbox("check");
+                });
+                $("#allRefuse").click(function () {
+                    $(".ui .checkbox").checkbox("uncheck");
+                });
+                $("#cancel").click(function () {
+                    $(".checkbox").checkbox("toggle");
+                });
+
+                $(".ui .checkbox").checkbox({
+                    onChange:(function () {
+                        $(".ui .modal")
+                                .modal({
+                                        onApprove: function () {
+
+                                            $(this).parent().find("label").text($("#txtModify").val());
+                                        }.bind(this)
+                                })
+                                .modal("show")
+                    })
+                });
+            </script>
+    </div>
+</div>
+</body>
+</html>

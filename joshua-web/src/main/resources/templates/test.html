@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>光音堂网站课程学习</title>
+    <link rel="stylesheet" href="../websrc/css/semantic.css"/>
+</head>
+<body>
+
+<button class="ui button">按钮 </button>
+<div class="ui red button" tabindex="0">Focusable </div>
+<div class="ui buttons">
+    <button class="ui button">One</button>
+    <button class="ui button">Two</button>
+    <button class="ui button">Three</button>
+</div>
+
+<button class="ui button">test</button>
+<script src="../websrc/js/jquery.js"></script>
+<script src="../websrc/js/semantic.js"></script>
+<script>
+    $(".ui.button").on("click",function() {
+        $(this).toggleClass("Loading");
+    });
+</script>
+
+
+<div class="ui container">
+    <h1 class="ui header">光音堂成员</h1>
+    <div class="ui checkbox">
+        <input name="item1" type="checkbox">
+            <label>itme1</label>
+        <input name="item2" type="checkbox">
+            <label>itme2</label>
+        <input name="item3" type="checkbox">
+            <label>itme3</label>
+        <input name="item4" type="checkbox">
+            <label>itme4</label>
+        <input name="item5" type="checkbox">
+            <label>itme5</label>
+    </div>
+
+    <div>
+        <button class="ui primary button">全选</button>
+        <button class="ui secondary button">反选</button>
+        <button class="ui button">清除</button>
+    </div>
+</div>
+<script>
+    $(".ui.primary.button").click(function () {
+        $(".checkbox.item1").
+    })
+</script>
+</body>
+</html>
