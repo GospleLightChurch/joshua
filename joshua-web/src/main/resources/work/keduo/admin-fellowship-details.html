@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/header :: head">
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+</head>
+<body>
+
+<div th:replace="fragment/admin-nav :: primary">导航栏</div>
+
+<div class="ui admin layout root">
+    <div th:replace="fragment/admin-layout :: header('我的团契', ${fellowship.name})">布局标题</div>
+    <div th:replace="fragment/admin-fellowship-details :: details(${fellowship})">用户表格</div>
+    <div th:replace="fragment/admin-fellowship-details :: modal(${fellowship})">修改权限对话框</div>
+    <form class="ui admin fellowship form" th:action="@{/}" th:object="${fellowship}" method="post" style="display: none">
+        <input type="hidden" th:field="*{name}"/>
+    </form>
+</div>
+
+<script th:replace="fragment/header :: script"></script>
+</body>
+</html>

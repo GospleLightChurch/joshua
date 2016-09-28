@@ -9,9 +9,9 @@
 <div th:replace="fragment/admin-nav :: primary">导航栏</div>
 
 <div class="ui admin layout root">
-    <div th:replace="fragment/admin-layout :: header('团契详细信息', ${subtitle})">布局标题</div>
-    <form class="ui admin user form" th:action="@{/}" th:object="${user}" method="post" style="display: none">
-        <input type="hidden" th:field="*{username}"/>
+    <div th:replace="fragment/admin-layout :: header('团契管理', ${subtitle})">布局标题</div>
+    <div th:replace="fragment/admin-fellowship :: table(${fellowships})">用户表格</div>
+    <form class="ui admin user form" th:action="@{/}" th:object="${fellowships}" method="post" style="display: none">
     </form>
 </div>
 

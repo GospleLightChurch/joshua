@@ -1,10 +1,46 @@
+<!--
+后台团契管理组件
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8"/>
+    <title>后台团契管理</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
 </head>
 <body>
-$END$
+
+<table th:fragment="table (items)" class="ui celled table">
+    <thead>
+    <tr>
+        <th>团契名称</th>
+        <th>团契所有者</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(items)}">
+        <td th:colspan="3">当前还没有内容</td>
+    </tr>
+    <tr th:each="item : ${items}">
+        <td th:utext="${item.name}"></td>
+        <td th:utext="${item.owner_username}"></td>
+        <td>
+            <a class="ui tiny button" th:href="@{'/admin/fellowship/' + ${item.name}}" target="_blank">查看</a>
+            <button th:attr="data-name=${item.name}" th:if="${item.isEnabled()}"
+                    class="ui admin fellowship disable tiny red button">禁用
+            </button>
+            <button th:attr="data-name=${item.name}" th:if="${not item.isEnabled()}"
+                    class="ui admin fellowship enable tiny green button">激活
+            </button>
+            <a class="ui tiny button" th:href="@{'/admin/fellowship/' + ${item.owner_name}}" target="_blank">更改所有者</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="../../websrc/js/lib-001-jquery.js"></script>
+<script src="../../websrc/js/lib-002-semantic.js"></script>
 </body>
 </html>

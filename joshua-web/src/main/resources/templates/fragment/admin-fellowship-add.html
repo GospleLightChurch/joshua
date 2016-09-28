@@ -1,10 +1,91 @@
+<!--
+    添加团契详细页面
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"   xmlns="http://www.w3.org/1999/xhtml"  >
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8"/>
+    <title>添加团契</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css">
 </head>
 <body>
-$END$
+
+<div th:fragment="fellowship_edit (item)" class="ui segment">
+    <h2>添加团契详细信息</h2>
+    <div class="ui divider"></div>
+    <div class="ui two column stackable grid container">
+        <div class="column">
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black label">团契名称</label>
+                </div>
+                <div class="eight wide column">
+                    <input class="ui input" name="name" th:utext="${item.name}"></input>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black fluid label">团契显示状态</label>
+                </div>
+                <div class="eight wide column">
+                    <label class="ui green label" th:if="${item.isAccountNonLocked() and item.isEnabled()}">正常</label>
+                    <label class="ui orange label" th:if="${!item.isAccountNonLocked() and item.isEnabled()}">激活</label>
+                    <label class="ui red label" th:if="${!item.isEnabled()}">禁用</label>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black fluid label">团契创建日期</label>
+                </div>
+                <div class="eight wide column">
+                    <input class="ui input"  name="created_date" th:utext="${item.created_data}"></input>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black fluid label">团契显示名称</label>
+                </div>
+                <div class="eight wide column">
+                    <input class="ui input"  name="display_name" th:utext="${item.display_name}"></input>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black fluid label">团契所有人</label>
+                </div>
+                <div class="eight wide column">
+                    <input class="ui input"  name="owner" th:utext="${item.owner}"></input>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="four wide left aligned column">
+                    <label class="ui black fluid label">团契所有人用户名</label>
+                </div>
+                <div class="eight wide column">
+                    <input class="ui input"  name="owner_name" th:utext="${item.owner_username}"></input>
+                </div>
+            </div>
+            <div class="ui grid">
+                <div class="ten wide center aligned column">
+                    <button th:attr="data-name=${item.name}"  class="ui admin fellowship add modal">确定添加</button>
+                </div>
+            </div>
+        </div>
+
+<!--导入添加图片组件-->
+        <div class="column ">
+            <div class="ui celled grid">
+                <div class="six wide column">
+                    <img th:replace="ui admin fellowship add img">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
 </body>
 </html>
