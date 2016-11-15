@@ -24,7 +24,7 @@ public class ArticlePageController {
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/{id}.html")
     public ModelAndView detailsPage(
             @PathVariable String id
     ) {
