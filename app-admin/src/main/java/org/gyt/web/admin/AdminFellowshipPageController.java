@@ -1,9 +1,9 @@
 package org.gyt.web.admin;
 
-import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.User;
+import org.gyt.web.repository.repository.FellowshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,19 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * 后台页面路由器
- * Created by Administrator on 2016/9/16.
- */
 @RestController
 @RequestMapping("/admin")
 public class AdminFellowshipPageController {
 
     @Autowired
-    private FellowshipService fellowshipService;
+    private FellowshipRepository fellowshipRepository;
 
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
@@ -33,7 +26,7 @@ public class AdminFellowshipPageController {
     public ModelAndView tablePage() {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-fellowship");
         modelAndView.addObject("subtitle", "所有团契");
-        modelAndView.addObject("items", fellowshipService.getAll());
+        modelAndView.addObject("items", fellowshipRepository.findAllByOrderByName());
         return modelAndView;
     }
 
@@ -43,10 +36,7 @@ public class AdminFellowshipPageController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("subtitle", "我的团契");
 
-        Set<Fellowship> fellowshipSet = new HashSet<>();
-        fellowshipSet.addAll(fellowshipService.getUserOwnerFellowship(user.getUsername()));
-        fellowshipSet.addAll(fellowshipService.getUserAdminFellowship(user.getUsername()));
-        modelAndView.addObject("items", fellowshipSet);
+        modelAndView.addObject("items", fellowshipRepository.findByUser(user));
         return modelAndView;
     }
 
@@ -56,7 +46,7 @@ public class AdminFellowshipPageController {
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-fellowship-details");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Fellowship fellowship = fellowshipService.get(name);
+        Fellowship fellowship = fellowshipRepository.findOne(name);
 
         if (null == fellowship) {
             modelAndView.setViewName("404");

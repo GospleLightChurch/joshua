@@ -1,15 +1,17 @@
 package org.gyt.web.repository.repository;
 
 import org.gyt.web.model.Fellowship;
+import org.gyt.web.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-/**
- * 团契仓库
- * Created by y27chen on 2016/9/14.
- */
-@Repository
-@Transactional
+import java.util.List;
+
 public interface FellowshipRepository extends JpaRepository<Fellowship, String> {
+
+    List<Fellowship> findAllByOrderByName();
+
+    @Query("select f from Fellowship f where f.owner = :username or :username member f.admins")
+    List<Fellowship> findByUser(@Param("username") User username);
 }
