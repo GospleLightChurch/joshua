@@ -1,23 +1,20 @@
 package org.gyt.web.admin;
 
-import org.apache.commons.lang3.StringUtils;
 import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.service.RoleService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.User;
+import org.gyt.web.repository.repository.RoleRepository;
 import org.gyt.web.repository.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -25,11 +22,14 @@ import java.util.stream.Collectors;
  * Created by Administrator on 2016/9/16.
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/user")
 public class AdminUserPageController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private RoleService roleService;
@@ -43,46 +43,61 @@ public class AdminUserPageController {
     @Autowired
     private PaginationComponent paginationComponent;
 
-    @RequestMapping("/user")
-    public ModelAndView userTablePage(
-            @RequestParam(required = false) String type, Pageable pageable
-    ) {
+    @RequestMapping("/normal")
+    public ModelAndView getNormal(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
-
-        Page<User> userPage = new PageImpl<>(new ArrayList<>());
-
-        if (StringUtils.isEmpty(type)) {
-            modelAndView.addObject("users", new ArrayList<>());
-            modelAndView.addObject("subtitle", "未知类型");
-        } else if (type.equalsIgnoreCase("ADMIN")) {
-            modelAndView.addObject("subtitle", "系统管理员");
-            userPage = userRepository.findByRole(pageable, "ADMIN");
-        } else if (type.equalsIgnoreCase("EDITOR")) {
-            modelAndView.addObject("subtitle", "网站编辑");
-            userPage = userRepository.findByRole(pageable, "EDITOR");
-        } else if (type.equalsIgnoreCase("FS_ADMIN")) {
-            modelAndView.addObject("subtitle", "团契管理员");
-            userPage = userRepository.findByRole(pageable, "FS_ADMIN");
-        } else if (type.equalsIgnoreCase("RE_ADMIN")) {
-            modelAndView.addObject("subtitle", "资源管理员");
-            userPage = userRepository.findByRole(pageable, "RE_ADMIN");
-        } else if (type.equalsIgnoreCase("MEMBER")) {
-            modelAndView.addObject("subtitle", "团契成员");
-            userPage = userRepository.findByRole(pageable, "MEMBER");
-        } else if (type.equalsIgnoreCase("USER")) {
-            modelAndView.addObject("subtitle", "注册用户");
-            userPage = userRepository.findByRole(pageable, "USER");
-        } else {
-            modelAndView.addObject("users", new ArrayList<>());
-            modelAndView.addObject("subtitle", "未知类型");
-        }
-
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("USER"));
         modelAndView.addObject("users", userPage.getContent());
-        paginationComponent.addPagination(modelAndView, userPage, "/admin/user?type=" + type);
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/normal");
         return modelAndView;
     }
 
-    @RequestMapping("/user/{username}")
+    @RequestMapping("/member")
+    public ModelAndView getMember(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("MEMBER"));
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/member");
+        return modelAndView;
+    }
+
+    @RequestMapping("/admin")
+    public ModelAndView getAdmin(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("ADMIN"));
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/admin");
+        return modelAndView;
+    }
+
+    @RequestMapping("/editor")
+    public ModelAndView getEditor(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("EDITOR"));
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/editor");
+        return modelAndView;
+    }
+
+    @RequestMapping("/fsadmin")
+    public ModelAndView getFSAdmin(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("FS_ADMIN"));
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/fsadmin");
+        return modelAndView;
+    }
+
+    @RequestMapping("/readmin")
+    public ModelAndView getREAdmin(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
+        Page<User> userPage = userRepository.findByRole(pageable, roleRepository.findOne("RE_ADMIN"));
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user/normal");
+        return modelAndView;
+    }
+
+    @RequestMapping("/{username}")
     public ModelAndView userDetailsPage(
             @PathVariable String username
     ) {

@@ -30,23 +30,23 @@
         <div class="user item" sec:authorize="hasRole('ROLE_MANAGE_USER_STATUS')">
             <div class="title header "><i class="dropdown icon"></i> 用户管理</div>
             <div class=" content">
-                <a class="item" th:href="@{/admin/user(type='USER')}">
+                <a class="item" th:href="@{/admin/user/normal}">
                     注册用户 <span class="ui primary left pointing label" th:utext="${userCountModel.userCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/user(type='MEMBER')}">
+                <a class="item" th:href="@{/admin/user/member}">
                     团契成员 <span class="ui primary left pointing label" th:utext="${userCountModel.memberCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/user(type='ADMIN')}">
+                <a class="item" th:href="@{/admin/user/admin}">
                     系统管理员 <span class="ui primary left pointing label" th:utext="${userCountModel.adminCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/user(type='EDITOR')}">
+                <a class="item" th:href="@{/admin/user/editor}">
                     网站编辑 <span class="ui primary left pointing label" th:utext="${userCountModel.editorCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/user(type='FS_ADMIN')}">
+                <a class="item" th:href="@{/admin/user/fsadmin}">
                     团契管理员 <span class="ui primary left pointing label"
                                 th:utext="${userCountModel.adminFSCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/user(type='RE_ADMIN')}">
+                <a class="item" th:href="@{/admin/user/readmin}">
                     资源管理员 <span class="ui primary left pointing label"
                                 th:utext="${userCountModel.adminRECount}">0</span>
                 </a>
