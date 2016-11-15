@@ -25,11 +25,18 @@ public class ArticlePageController {
     private ModelAndViewUtils modelAndViewUtils;
 
     @RequestMapping("/{id}.html")
-    public ModelAndView detailsPage(
-            @PathVariable String id
-    ) {
+    public ModelAndView detailsHtmlPage(@PathVariable Long id) {
+        return getDetails(id);
+    }
+
+    @RequestMapping("/{id}")
+    public ModelAndView detailsPage(@PathVariable Long id) {
+        return getDetails(id);
+    }
+
+    private ModelAndView getDetails(Long id) {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article");
-        Article article = articleService.get(Long.valueOf(id));
+        Article article = articleService.get(id);
 
         if (null == article || article.isDisable() || !article.getStatus().equals(ArticleStatus.PUBLISHED)) {
             modelAndViewUtils.convertTo404(modelAndView, "文章不存在或者未发布");
