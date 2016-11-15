@@ -1,0 +1,25 @@
+<!--
+分页基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>基督教光音堂</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+</head>
+
+<body>
+
+<div th:fragment="basic" class="ui pagination menu ">
+    <a class="icon item" th:href="@{${pageFirst}}"><i class="angle double left icon"></i></a>
+    <a class="icon item" th:href="@{${pagePre}}"><i class="angle left icon"></i></a>
+    <a th:each="item : ${pageItem}" th:href="@{${item.link}}" th:text="${item.title}"
+       th:class="${item.isActive()} ? 'active item' : 'item'"></a>
+    <a class="icon item" th:href="@{${pageNext}}"><i class="angle right icon"></i></a>
+    <a class="icon item" th:href="@{${pageLast}}"><i class="angle double right icon"></i></a>
+</div>
+
+<script src="../../public/assets/js/joshua.min.js"></script>
+</body>
+</html>

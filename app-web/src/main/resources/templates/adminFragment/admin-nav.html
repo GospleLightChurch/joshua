@@ -1,0 +1,134 @@
+<!--
+后台管理页面导航
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <title>后台导航</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+</head>
+
+<body>
+<nav th:fragment="primary" class="ui admin inverted vertical sticky fixed menu">
+    <div class="ui inverted accordion">
+        <a class="item" th:href="@{/admin}">
+            <h3 class="ui inverted header">
+                <i class="user icon"></i>
+                <div class="content" sec:authentication="principal.nickname">用户名</div>
+            </h3>
+        </a>
+
+        <div class="static item" sec:authorize="hasRole('ROLE_MANAGE_STATIC_PAGE')">
+            <div class="title header"><i class="dropdown icon"></i> 静态页面管理</div>
+            <div class="content">
+                <a class="item" th:href="@{/admin/static/home}">首页大图管理</a>
+            </div>
+        </div>
+
+        <div class="user item" sec:authorize="hasRole('ROLE_MANAGE_USER_STATUS')">
+            <div class="title header "><i class="dropdown icon"></i> 用户管理</div>
+            <div class=" content">
+                <a class="item" th:href="@{/admin/user/normal}">
+                    注册用户 <span class="ui primary left pointing label" th:utext="${userCountModel.userCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/user/member}">
+                    团契成员 <span class="ui primary left pointing label" th:utext="${userCountModel.memberCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/user/admin}">
+                    系统管理员 <span class="ui primary left pointing label" th:utext="${userCountModel.adminCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/user/editor}">
+                    网站编辑 <span class="ui primary left pointing label" th:utext="${userCountModel.editorCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/user/fsadmin}">
+                    团契管理员 <span class="ui primary left pointing label"
+                                th:utext="${userCountModel.adminFSCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/user/readmin}">
+                    资源管理员 <span class="ui primary left pointing label"
+                                th:utext="${userCountModel.adminRECount}">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="message item" sec:authorize="hasRole('ROLE_MANAGE_MESSAGE')">
+            <div class="title header"><i class="dropdown icon"></i> 留言管理</div>
+            <div class="content">
+                <a class="item" th:href="@{/admin/message/all}">
+                    所有 <span class="ui primary left pointing label" th:utext="${messageCountModel.allCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/message/suffrage}">
+                    代祷 <span class="ui primary left pointing label"
+                             th:utext="${messageCountModel.suffrageCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/message/question}">
+                    咨询 <span class="ui primary left pointing label"
+                             th:utext="${messageCountModel.questionCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/message/advise}">
+                    建议 <span class="ui primary left pointing label" th:utext="${messageCountModel.adviseCount}">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="fellowship item">
+            <div class="title header"><i class="dropdown icon"></i> 团契管理</div>
+            <div class="content">
+                <a class="item" sec:authorize="hasRole('ROLE_MANAGE_FELLOWSHIP')"
+                   th:href="@{/admin/fellowship}">所有团契</a>
+                <a class="item" th:href="@{/admin/myfellowship}">我的团契</a>
+            </div>
+        </div>
+
+        <div class="article item">
+            <div class="title header"><i class="dropdown icon"></i> 文章管理</div>
+            <div class="content">
+                <a class="item" th:href="@{/admin/article/mine}">
+                    我的文章 <span class="ui primary left pointing label"
+                               th:utext="${articleCountModel.myArticleCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/article/raw}">
+                    草稿箱 <span class="ui primary left pointing label"
+                              th:utext="${articleCountModel.rawArticleCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/article/reject}">
+                    驳回文章 <span class="ui primary left pointing label"
+                               th:utext="${articleCountModel.rejectArticleCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/article/audit}">
+                    待审核文章 <span class="ui primary left pointing label"
+                                th:utext="${articleCountModel.auditArticleCount}">0</span>
+                </a>
+                <a class="item" th:href="@{/admin/article/publish}">
+                    已发布文章 <span class="ui primary left pointing label"
+                                th:utext="${articleCountModel.publishArticleCount}">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="info item">
+            <div class="title header"><i class="dropdown icon"></i> 我的信息</div>
+            <div class="content">
+                <a class="item" th:href="@{/info}">我的资料</a>
+                <a class="item" th:href="@{/password}">更改密码</a>
+                <a class="item user logout"> 退出
+                    <form th:action="@{/logout}" method="post">
+                    </form>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script src="../../websrc/js/lib-001-jquery.js"></script>
+<script src="../../websrc/js/lib-002-semantic.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.ui.admin.menu .ui.accordion').accordion('refresh');
+        $('.ui.admin.menu .ui.dropdown').dropdown();
+    })
+</script>
+</body>
+</html>

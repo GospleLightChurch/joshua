@@ -1,0 +1,107 @@
+<!--
+    文章列表基本组件，用于显示文章列表
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment/header :: head">
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- 带标题的文章列表组件 -->
+<div th:fragment="group-table (title, items)">
+    <div class="ui hidden divider"></div>
+    <div class="ui horizontal divider" th:utext="${title}"></div>
+    <div th:replace="fragment/article :: table(${items})"></div>
+</div>
+
+<!-- 前端文章列表组件 -->
+<div th:fragment="table (items)" class="ui articles divided items">
+    <h4 th:if="${#lists.isEmpty(items)}" class="ui header">暂时还没有消息</h4>
+    <div th:each="article : ${items}" th:if="${@articleUtils.isAvailable(article)}" class="item">
+        <div th:replace="fragment/article :: cover (${article})"></div>
+        <div class="content">
+            <a class="header" th:utext="${article.title}" th:href="@{'/article/' + ${article.id} + '.html'}"
+               target="_blank">文章标题</a>
+            <div th:replace="fragment/article :: list-desc (${article})"></div>
+            <div class="extra">
+                <label th:title="${#dates.format(article.lastModifiedTime, 'yyyy-MM-dd')}">
+                    <i class="calendar icon"></i>
+                    <span th:utext="${@displayDateUtils.getDisplayDate(article.lastModifiedTime)}"></span>
+                </label>
+
+                <label>
+                    <i class="eye icon"></i>
+                    <span th:utext="${article.pageView} ? ${article.pageView} : 0"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 前端文章列表 - 列表项 -->
+<div th:fragment="list-item (article)" class="item">
+    <div th:replace="fragment/article :: cover (${article})"></div>
+    <div class="content">
+        <a class="header" th:utext="${article.title}" th:href="@{'/article/' + ${article.id} + '.html'}"
+           target="_blank">文章标题</a>
+        <div th:replace="fragment/article :: list-desc (${article})"></div>
+        <div class="extra">
+            <label th:title="${#dates.format(article.lastModifiedTime, 'yyyy-MM-dd')}">
+                <i class="calendar icon"></i>
+                <span th:utext="${@displayDateUtils.getDisplayDate(article.lastModifiedTime)}"></span>
+            </label>
+
+            <label>
+                <i class="eye icon"></i>
+                <span th:utext="${article.pageView} ? ${article.pageView} : 0"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- 前端文章列表 - 文章封面组件 -->
+<a th:fragment="cover (article)" class="ui tiny image" th:href="@{'/article/' + ${article.id} + '.html'}" target="_blank">
+    <img th:if="${article.cover == null}" th:src="@{/assets/images/article-cover.jpg}"/>
+    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"/>
+</a>
+
+<!-- 前端文章列表 - 文章描述信息 -->
+<div th:fragment="list-desc (article)" class="meta"
+     th:utext="${#strings.isEmpty(article.description)} ? ${article.title} : ${article.description} ">
+</div>
+
+<!-- 前端文章页面 - 状态栏组件 -->
+<div th:fragment="article-status (article)" class="ui stackable grid">
+    <div class="eight wide column">
+        <div th:replace="fragment/widget :: icon-link (${article.fellowship.displayName}, 'home', ${'/fellowship/' + article.fellowship.name})"></div>
+        <div th:replace="fragment/widget :: icon-label (${@displayDateUtils.getDisplayDate(article.lastModifiedTime)}, 'calendar')"></div>
+        <div th:replace="fragment/widget :: icon-label (${article.pageView} ? ${article.pageView} : 0, 'eye')"></div>
+    </div>
+    <div class="eight wide right aligned computer only tablet only column">
+        <div th:replace="fragment/widget :: icon-label ('分享文章', 'share')"></div>
+
+        <i class="ui wechat link circular green icon qr"></i>
+        <div class="ui popup">
+            <div class="ui horizontal divider">扫描二维码分享文章</div>
+            <div class="ui segment">
+                <div id="qr-address" style="text-align: center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 文章阅读器 -->
+<div th:fragment="article-reader (article)">
+    <div class="article-reader" style="height: 200px;">
+        <div class="container"></div>
+        <input id="article-id" th:value="${article.id}" type="hidden"/>
+    </div>
+    <div th:replace="fragment/widget :: text-loader('正在飞一般地加载文章')"></div>
+</div>
+
+</body>
+</html>

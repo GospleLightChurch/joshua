@@ -9,13 +9,16 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>joshua-starter</module>
-        <module>joshua-web</module>
-        <module>joshua-resource</module>
-        <module>joshua-model</module>
-        <module>joshua-security</module>
-        <module>joshua-admin</module>
-        <module>joshua-api</module>
+        <module>app-starter</module>
+        <module>app-web</module>
+        <module>app-resource</module>
+        <module>app-model</module>
+        <module>app-security</module>
+        <module>app-admin</module>
+        <module>app-api</module>
+        <module>app-core</module>
+        <module>app-front</module>
+        <module>app-repository</module>
     </modules>
 
     <parent>
