@@ -2,7 +2,7 @@
 
 set HOME = `pwd`
 
-cd joshua-web/src/main/resources/websrc
+cd app-web/src/main/resources/websrc
 gulp css
 webpack
 
