@@ -53,29 +53,6 @@
             </div>
         </div>
 
-        <div class="navigation item" sec:authorize="hasRole('ROLE_MANAGE_NAVIGATION')">
-            <div class="title header"><i class="dropdown icon"></i> 导航管理</div>
-            <div class="content">
-                <a class="item" th:href="@{/admin/navigation}">一级导航管理</a>
-            </div>
-        </div>
-
-        <div class="notification item" sec:authorize="hasRole('ROLE_MANAGE_NOTIFICATION')">
-            <div class="title header"><i class="dropdown icon"></i> 通知管理</div>
-            <div class="content">
-                <a class="item" th:href="@{/admin/notification}">
-                    所有通知 <span class="ui primary left pointing label"
-                               th:utext="${notificationCountModel.allCount}">0</span>
-                </a>
-                <a class="item" th:href="@{/admin/notification(type='ACTIVATE')}">
-                    当前通知 <span class="ui primary left pointing label" th:utext="${notificationCountModel.currentCount}">0</span>
-                </a>
-                <a class="item" th:href="@{/admin/notification(type='EXPIRED')}">
-                    过期通知 <span class="ui primary left pointing label" th:utext="${notificationCountModel.expiredCount}">0</span>
-                </a>
-            </div>
-        </div>
-
         <div class="message item" sec:authorize="hasRole('ROLE_MANAGE_MESSAGE')">
             <div class="title header"><i class="dropdown icon"></i> 留言管理</div>
             <div class="content">
