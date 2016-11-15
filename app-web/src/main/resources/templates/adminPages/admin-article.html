@@ -15,16 +15,16 @@
     <div th:replace="adminFragment/admin-layout :: header(${subtitle}, '文章管理')">布局标题</div>
     <div th:replace="adminFragment/admin-article :: toolbar"></div>
 
-    <div th:if="${type == 'MINE'}">
+    <div th:if="${type == 'mine'}">
         <div th:replace="adminFragment/admin-article :: table-mine(${items})"></div>
     </div>
-    <div th:if="${(type == 'RAW') or (type == 'REJECT')}">
+    <div th:if="${(type == 'raw') or (type == 'reject')}">
         <div th:replace="adminFragment/admin-article :: table-normal(${items})"></div>
     </div>
-    <div th:if="${type == 'AUDIT'}">
+    <div th:if="${type == 'audit'}">
         <div th:replace="adminFragment/admin-article :: table-audit(${items})"></div>
     </div>
-    <div th:if="${type == 'PUBLISH'}">
+    <div th:if="${type == 'publish'}">
         <div th:replace="adminFragment/admin-article :: table-publish(${items})"></div>
     </div>
     <form class="ui admin user form" th:action="@{/}" th:object="${users}" method="post" style="display: none">
