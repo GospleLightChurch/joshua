@@ -1,7 +1,6 @@
 package org.gyt.web.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import java.util.Date;
 
 /**
@@ -64,20 +63,20 @@ public class Message {
         this.owner = owner;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public boolean isRead() {
         return isRead;
     }
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public MessageType getType() {

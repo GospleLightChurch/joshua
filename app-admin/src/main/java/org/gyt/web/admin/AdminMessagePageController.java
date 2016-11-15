@@ -1,28 +1,22 @@
 package org.gyt.web.admin;
 
-import org.apache.commons.lang3.StringUtils;
-import org.gyt.web.core.service.MessageService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.Message;
 import org.gyt.web.model.MessageType;
+import org.gyt.web.repository.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * 后台页面路由器
- * Created by Administrator on 2016/9/16.
- */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/message")
 public class AdminMessagePageController {
 
     @Autowired
-    private MessageService messageService;
+    private MessageRepository messageRepository;
 
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
@@ -30,44 +24,49 @@ public class AdminMessagePageController {
     @Autowired
     private PaginationComponent paginationComponent;
 
-    @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public ModelAndView tablePage(
-            @RequestParam(required = false) String type,
-            @RequestParam(required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(required = false, defaultValue = "20") int pageSize
-    ) {
+    @RequestMapping(value = "/suffrage", method = RequestMethod.GET)
+    public ModelAndView getSuffrage(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-message");
-
-        List<Message> messageList = new ArrayList<>();
-
-        if (StringUtils.isEmpty(type)) {
-            messageList = messageService.getAll();
-            modelAndView.addObject("subtitle", "所有留言");
-            type = "";
-        } else if (type.equalsIgnoreCase("ADVISE")) {
-            messageList = messageService.getByType(MessageType.ADVICE);
-            modelAndView.addObject("subtitle", "建议");
-        } else if (type.equalsIgnoreCase("QUESTION")) {
-            messageList = messageService.getByType(MessageType.QUESTION);
-            modelAndView.addObject("subtitle", "咨询");
-        } else if (type.equalsIgnoreCase("SUFFRAGE")) {
-            messageList = messageService.getByType(MessageType.SUFFRAGE);
-            modelAndView.addObject("subtitle", "代祷");
-        } else {
-            modelAndView.addObject("subtitle", "未知类型");
-        }
-
-        modelAndView.addObject("items", paginationComponent.listPagination(messageList, pageNumber, pageSize));
-        paginationComponent.addPaginationModel(modelAndView, "/admin/message?type=" + type, messageList.size(), pageNumber, pageSize);
-
+        Page<Message> messagePage = messageRepository.findByTypeOrderByIsReadAscCreatedDateDesc(pageable, MessageType.SUFFRAGE);
+        modelAndView.addObject("items", messagePage.getContent());
+        paginationComponent.addPagination(modelAndView, messagePage, "/admin/message/suffrage");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/message/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/advise", method = RequestMethod.GET)
+    public ModelAndView getAdvise(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-message");
+        Page<Message> messagePage = messageRepository.findByTypeOrderByIsReadAscCreatedDateDesc(pageable, MessageType.ADVICE);
+        modelAndView.addObject("items", messagePage.getContent());
+        paginationComponent.addPagination(modelAndView, messagePage, "/admin/message/advise");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    public ModelAndView getQuestion(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-message");
+        Page<Message> messagePage = messageRepository.findByTypeOrderByIsReadAscCreatedDateDesc(pageable, MessageType.QUESTION);
+        modelAndView.addObject("items", messagePage.getContent());
+        paginationComponent.addPagination(modelAndView, messagePage, "/admin/message/question");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ModelAndView tablePage(
+            @RequestParam(required = false) String type, Pageable pageable
+    ) {
+        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-message");
+        Page<Message> messagePage = messageRepository.findAllByOrderByIsReadAscCreatedDateDesc(pageable);
+        modelAndView.addObject("items", messagePage.getContent());
+        paginationComponent.addPagination(modelAndView, messagePage, "/admin/message/all");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView detailsPage(@PathVariable Long id) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-message-details");
 
-        Message message = messageService.get(id);
+        Message message = messageRepository.findOne(id);
 
         if (message == null) {
             modelAndView.setViewName("404");

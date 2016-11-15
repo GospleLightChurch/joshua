@@ -12,26 +12,12 @@
 <body>
 
 <div th:fragment="basic" class="ui pagination menu ">
-    <a class="icon item"
-       th:href="@{${pagination.url}(pageNumber=${pagination.firstPage},pageSize=${pagination.pageSize})}">
-        <i class="angle double left icon"></i>
-    </a>
-    <a class="icon item"
-       th:href="@{${pagination.url}(pageNumber=${pagination.previousPage},pageSize=${pagination.pageSize})}">
-        <i class="angle left icon"></i>
-    </a>
-    <a th:each="item : ${pagination.items}" class="item"
-       th:class="${pagination.currentPage == item ? 'active item' : 'item'}"
-       th:href="@{${pagination.url}(pageNumber=${item},pageSize=${pagination.pageSize})}"
-       th:utext="${item}">1</a>
-    <a class="icon item"
-       th:href="@{${pagination.url}(pageNumber=${pagination.nextPage},pageSize=${pagination.pageSize})}">
-        <i class="angle right icon"></i>
-    </a>
-    <a class="icon item"
-       th:href="@{${pagination.url}(pageNumber=${pagination.lastPage},pageSize=${pagination.pageSize})}">
-        <i class="angle double right icon"></i>
-    </a>
+    <a class="icon item" th:href="@{${pageFirst}}"><i class="angle double left icon"></i></a>
+    <a class="icon item" th:href="@{${pagePre}}"><i class="angle left icon"></i></a>
+    <a th:each="item : ${pageItem}" th:href="@{${item.link}}" th:text="${item.title}"
+       th:class="${item.isActive()} ? 'active item' : 'item'"></a>
+    <a class="icon item" th:href="@{${pageNext}}"><i class="angle right icon"></i></a>
+    <a class="icon item" th:href="@{${pageLast}}"><i class="angle double right icon"></i></a>
 </div>
 
 <script src="../../public/assets/js/joshua.min.js"></script>

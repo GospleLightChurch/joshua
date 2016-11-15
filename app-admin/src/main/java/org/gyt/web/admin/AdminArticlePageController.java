@@ -1,7 +1,6 @@
 package org.gyt.web.admin;
 
 import org.apache.commons.lang3.StringUtils;
-import org.gyt.web.core.service.ArticleService;
 import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.core.utils.PaginationComponent;
@@ -9,7 +8,11 @@ import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
 import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.User;
+import org.gyt.web.repository.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 后台页面路由器
@@ -32,7 +33,7 @@ import java.util.stream.Collectors;
 public class AdminArticlePageController {
 
     @Autowired
-    private ArticleService articleService;
+    private ArticleRepository articleRepository;
 
     @Autowired
     private FellowshipService fellowshipService;
@@ -45,61 +46,57 @@ public class AdminArticlePageController {
 
     @RequestMapping("/article")
     public ModelAndView tablePage(
-            @RequestParam(required = false) String type,
-            @RequestParam(required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(required = false, defaultValue = "20") int pageSize
+            @RequestParam(required = false) String type, Pageable pageable
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<Article> articleList = articleService.getFromUser(user.getUsername());
+        Page<Article> articlePage = new PageImpl<>(new ArrayList<>());
 
         if (StringUtils.isEmpty(type) || type.equalsIgnoreCase("MINE")) {
             modelAndView.addObject("subtitle", "我的文章");
             type = "MINE";
+            articlePage = articleRepository.findByAuthor(pageable, user.getUsername());
         } else if (type.equalsIgnoreCase("RAW")) {
-            articleList = articleList.stream().filter(article -> article.getStatus().equals(ArticleStatus.RAW)).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "草稿箱");
+            articlePage = articleRepository.findByAuthorAndStatus(pageable, user.getUsername(), ArticleStatus.RAW);
         } else if (type.equalsIgnoreCase("AUDIT")) {
-            if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-                articleList = articleService.getAll().stream().filter(article -> article.getStatus().equals(ArticleStatus.AUDITING)).collect(Collectors.toList());
-            } else {
-                articleList = articleList.stream().filter(article -> article.getStatus().equals(ArticleStatus.AUDITING)).collect(Collectors.toList());
-            }
             modelAndView.addObject("subtitle", "待审核文章");
-        } else if (type.equalsIgnoreCase("PUBLISH")) {
             if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-                articleList = articleService.getAll().stream().filter(article -> article.getStatus().equals(ArticleStatus.PUBLISHED)).collect(Collectors.toList());
+                articlePage = articleRepository.findByStatus(pageable, ArticleStatus.AUDITING);
             } else {
-                articleList = articleList.stream().filter(article -> article.getStatus().equals(ArticleStatus.PUBLISHED)).collect(Collectors.toList());
+                articlePage = articleRepository.findByAuthorAndStatus(pageable, user.getUsername(), ArticleStatus.AUDITING);
             }
+        } else if (type.equalsIgnoreCase("PUBLISH")) {
             modelAndView.addObject("subtitle", "已发布文章");
+            if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
+                articlePage = articleRepository.findByStatus(pageable, ArticleStatus.PUBLISHED);
+            } else {
+                articlePage = articleRepository.findByAuthorAndStatus(pageable, user.getUsername(), ArticleStatus.PUBLISHED);
+            }
         } else if (type.equalsIgnoreCase("REJECT")) {
-            articleList = articleList.stream().filter(article -> article.getStatus().equals(ArticleStatus.REJECTED)).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "驳回文章");
+            articlePage = articleRepository.findByAuthorAndStatus(pageable, user.getUsername(), ArticleStatus.REJECTED);
         } else {
-            articleList = new ArrayList<>();
             modelAndView.addObject("subtitle", "未知类型");
         }
 
-        articleList.sort((o1, o2) -> o2.getLastModifiedTime().compareTo(o1.getLastModifiedTime()));
-
         modelAndView.addObject("title", String.format("光音堂后台 - %s", modelAndView.getModel().get("subtitle")));
         modelAndView.addObject("type", type);
-        modelAndView.addObject("items", paginationComponent.listPagination(articleList, pageNumber, pageSize));
-        paginationComponent.addPaginationModel(modelAndView, "/admin/article?type=" + type, articleList.size(), pageNumber, pageSize);
+        modelAndView.addObject("items", articlePage.getContent());
+        paginationComponent.addPagination(modelAndView, articlePage, "/admin/article?type=" + type);
         return modelAndView;
     }
 
     @RequestMapping("/article/{id}")
     public ModelAndView detailsPage(
-            @PathVariable String id
+            @PathVariable Long id
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-details");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Article article = articleService.get(Long.valueOf(id));
+        Article article = articleRepository.findOne(id);
 
         if (null == article) {
             modelAndView.addObject("error", "文章不存在");
@@ -115,13 +112,13 @@ public class AdminArticlePageController {
 
     @RequestMapping("/article/{id}/edit")
     public ModelAndView editArticlePage(
-            @PathVariable String id
+            @PathVariable Long id
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-editor");
         modelAndView.addObject("title", "编辑文章");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Article article = articleService.get(Long.valueOf(id));
+        Article article = articleRepository.findOne(id);
 
         if (article == null) {
             modelAndView.addObject("error", "文章不存在");
@@ -143,13 +140,13 @@ public class AdminArticlePageController {
 
     @RequestMapping("/article/{id}/audit")
     public ModelAndView auditArticlePage(
-            @PathVariable String id
+            @PathVariable Long id
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-audit");
         modelAndView.addObject("title", "审核文章");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Article article = articleService.get(Long.valueOf(id));
+        Article article = articleRepository.findOne(id);
 
         if (article == null) {
             modelAndView.addObject("error", "文章不存在");

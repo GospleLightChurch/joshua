@@ -3,11 +3,14 @@ package org.gyt.web.admin;
 import org.apache.commons.lang3.StringUtils;
 import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.service.RoleService;
-import org.gyt.web.core.service.UserService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.User;
+import org.gyt.web.repository.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
 public class AdminUserPageController {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleService roleService;
@@ -43,42 +45,40 @@ public class AdminUserPageController {
 
     @RequestMapping("/user")
     public ModelAndView userTablePage(
-            @RequestParam(required = false) String type,
-            @RequestParam(required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(required = false, defaultValue = "20") int pageSize
+            @RequestParam(required = false) String type, Pageable pageable
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user");
 
-        List<User> userList = new ArrayList<>();
+        Page<User> userPage = new PageImpl<>(new ArrayList<>());
 
         if (StringUtils.isEmpty(type)) {
             modelAndView.addObject("users", new ArrayList<>());
             modelAndView.addObject("subtitle", "未知类型");
         } else if (type.equalsIgnoreCase("ADMIN")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "系统管理员");
+            userPage = userRepository.findByRole(pageable, "ADMIN");
         } else if (type.equalsIgnoreCase("EDITOR")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("EDITOR"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "网站编辑");
+            userPage = userRepository.findByRole(pageable, "EDITOR");
         } else if (type.equalsIgnoreCase("FS_ADMIN")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("FS_ADMIN"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "团契管理员");
+            userPage = userRepository.findByRole(pageable, "FS_ADMIN");
         } else if (type.equalsIgnoreCase("RE_ADMIN")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("RE_ADMIN"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "资源管理员");
+            userPage = userRepository.findByRole(pageable, "RE_ADMIN");
         } else if (type.equalsIgnoreCase("MEMBER")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("MEMBER"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "团契成员");
+            userPage = userRepository.findByRole(pageable, "MEMBER");
         } else if (type.equalsIgnoreCase("USER")) {
-            userList = userService.getAll().stream().filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals("USER"))).collect(Collectors.toList());
             modelAndView.addObject("subtitle", "注册用户");
+            userPage = userRepository.findByRole(pageable, "USER");
         } else {
             modelAndView.addObject("users", new ArrayList<>());
             modelAndView.addObject("subtitle", "未知类型");
         }
 
-        modelAndView.addObject("users", paginationComponent.listPagination(userList, pageNumber, pageSize));
-        paginationComponent.addPaginationModel(modelAndView, "/admin/user?type=" + type, userList.size(), pageNumber, pageSize);
+        modelAndView.addObject("users", userPage.getContent());
+        paginationComponent.addPagination(modelAndView, userPage, "/admin/user?type=" + type);
         return modelAndView;
     }
 
@@ -88,7 +88,7 @@ public class AdminUserPageController {
     ) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-user-details");
 
-        User user = userService.get(username);
+        User user = userRepository.findOne(username);
 
         if (null == user) {
             modelAndView.setViewName("404");

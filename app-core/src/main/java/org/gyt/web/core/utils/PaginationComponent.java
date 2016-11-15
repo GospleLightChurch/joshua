@@ -1,6 +1,8 @@
 package org.gyt.web.core.utils;
 
+import org.gyt.web.core.model.PaginationItem;
 import org.gyt.web.core.model.PaginationModel;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,75 +12,48 @@ import java.util.List;
 @Component
 public class PaginationComponent {
 
-    private static final int MAX_PAGE_ITEM = 7;
+    private static final int DEFAULT_PAGINATION_SIZE = 8;
 
-    public <T> List<T> listPagination(List<T> list, int pageNumber, int pageSize) {
-        if (pageNumber > 0 && pageSize > 0) {
-            int firstItem = (pageNumber - 1) * pageSize;
-            int lastItem = firstItem + pageSize;
+    private static final String PAGE_PRE = "pagePre";
+    private static final String PAGE_NEXT = "pageNext";
+    private static final String PAGE_FIRST = "pageFirst";
+    private static final String PAGE_LAST = "pageLast";
+    private static final String PAGE_ITEM = "pageItem";
+    private static final String PAGE_FORMAT = "%s?page=%d&size=%d";
 
-            if (firstItem > list.size()) {
-                return new ArrayList<>();
+    public void addPagination(ModelAndView modelAndView, Page page, String baseUrl) {
+        int currentPage = page.getNumber();
+        int pageSize = page.getSize();
+        int totalPage = page.getTotalPages();
+
+        modelAndView.addObject(PAGE_PRE, String.format(PAGE_FORMAT, baseUrl, page.isFirst() ? 0 : page.previousPageable().getPageNumber(), pageSize));
+        modelAndView.addObject(PAGE_NEXT, String.format(PAGE_FORMAT, baseUrl, page.isLast() ? totalPage - 1 : page.nextPageable().getPageNumber(), pageSize));
+
+        modelAndView.addObject(PAGE_FIRST, String.format(PAGE_FORMAT, baseUrl, 0, pageSize));
+        modelAndView.addObject(PAGE_LAST, String.format(PAGE_FORMAT, baseUrl, totalPage - 1, pageSize));
+
+        int baseNumber = currentPage / DEFAULT_PAGINATION_SIZE;
+
+        List<PaginationItem> paginationItems = new ArrayList<>();
+
+        for (int i = 0; i < DEFAULT_PAGINATION_SIZE; i++) {
+            int target = baseNumber * DEFAULT_PAGINATION_SIZE + i + 1;
+
+            if (target > totalPage) {
+                continue;
             }
 
-            if (lastItem > list.size()) {
-                lastItem = list.size();
+            PaginationItem paginationItem = new PaginationItem();
+            paginationItem.setTitle(String.valueOf(target));
+            paginationItem.setLink(String.format(PAGE_FORMAT, baseUrl, target - 1, pageSize));
+
+            if (currentPage == target - 1) {
+                paginationItem.setActive(true);
             }
 
-            return list.subList(firstItem, lastItem);
+            paginationItems.add(paginationItem);
         }
 
-        return new ArrayList<>();
-    }
-
-    public void addPaginationModel(ModelAndView modelAndView, String url, long count, int pageNumber, int pageSize) {
-        PaginationModel paginationModel = new PaginationModel();
-
-        if (pageNumber > 0 && pageSize > 0) {
-            int totalPage = (int) Math.ceil((double) count / pageSize);
-
-            int middlePointOfPageItemLength = MAX_PAGE_ITEM / 2 + 1;
-
-            if (totalPage <= MAX_PAGE_ITEM) {
-                for (int i = 0; i < totalPage; i++) {
-                    paginationModel.addItem(i + 1);
-                }
-            } else {
-                if (pageNumber < middlePointOfPageItemLength) {
-                    for (int i = 0; i < MAX_PAGE_ITEM; i++) {
-                        paginationModel.addItem(i + 1);
-                    }
-                } else if (pageNumber > totalPage - middlePointOfPageItemLength) {
-                    for (int i = MAX_PAGE_ITEM; i > 0; i--) {
-                        paginationModel.addItem(totalPage - i + 1);
-                    }
-                } else {
-                    for (int i = 0; i < MAX_PAGE_ITEM; i++) {
-                        paginationModel.addItem(pageNumber - middlePointOfPageItemLength + i + 1);
-                    }
-                }
-            }
-
-
-            if (pageNumber > 1) {
-                paginationModel.setPreviousPage(pageNumber - 1);
-            } else {
-                paginationModel.setPreviousPage(1);
-            }
-
-            if (pageNumber < totalPage) {
-                paginationModel.setNextPage(pageNumber + 1);
-            } else {
-                paginationModel.setNextPage(totalPage);
-            }
-
-            paginationModel.setFirstPage(1);
-            paginationModel.setLastPage(totalPage);
-            paginationModel.setPageSize(pageSize);
-            paginationModel.setCurrentPage(pageNumber);
-            paginationModel.setUrl(url);
-        }
-
-        modelAndView.addObject("pagination", paginationModel);
+        modelAndView.addObject(PAGE_ITEM, paginationItems);
     }
 }

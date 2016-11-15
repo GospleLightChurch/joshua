@@ -79,18 +79,18 @@
         <div class="message item" sec:authorize="hasRole('ROLE_MANAGE_MESSAGE')">
             <div class="title header"><i class="dropdown icon"></i> 留言管理</div>
             <div class="content">
-                <a class="item" th:href="@{/admin/message}">
+                <a class="item" th:href="@{/admin/message/all}">
                     所有 <span class="ui primary left pointing label" th:utext="${messageCountModel.allCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/message(type=SUFFRAGE)}">
+                <a class="item" th:href="@{/admin/message/suffrage}">
                     代祷 <span class="ui primary left pointing label"
                              th:utext="${messageCountModel.suffrageCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/message(type=QUESTION)}">
+                <a class="item" th:href="@{/admin/message/question}">
                     咨询 <span class="ui primary left pointing label"
                              th:utext="${messageCountModel.questionCount}">0</span>
                 </a>
-                <a class="item" th:href="@{/admin/message(type=ADVISE)}">
+                <a class="item" th:href="@{/admin/message/advise}">
                     建议 <span class="ui primary left pointing label" th:utext="${messageCountModel.adviseCount}">0</span>
                 </a>
             </div>
