@@ -1,6 +1,6 @@
 package org.gyt.web;
 
-import org.gyt.web.api.service.*;
+import org.gyt.web.core.service.*;
 import org.gyt.web.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

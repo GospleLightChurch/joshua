@@ -1,10 +1,10 @@
 package org.gyt.web.admin;
 
-import org.gyt.web.api.repository.ArticleRepository;
-import org.gyt.web.api.repository.MessageRepository;
-import org.gyt.web.api.service.FellowshipService;
-import org.gyt.web.api.service.UserService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.repository.repository.ArticleRepository;
+import org.gyt.web.repository.repository.MessageRepository;
+import org.gyt.web.core.service.FellowshipService;
+import org.gyt.web.core.service.UserService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.ArticleStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

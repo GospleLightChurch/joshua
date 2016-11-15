@@ -1,6 +1,6 @@
 package org.gyt.web.security;
 
-import org.gyt.web.api.service.LogService;
+import org.gyt.web.core.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

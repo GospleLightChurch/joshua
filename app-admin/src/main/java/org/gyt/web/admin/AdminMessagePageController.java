@@ -1,9 +1,9 @@
 package org.gyt.web.admin;
 
 import org.apache.commons.lang3.StringUtils;
-import org.gyt.web.api.service.MessageService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
-import org.gyt.web.api.utils.PaginationComponent;
+import org.gyt.web.core.service.MessageService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
+import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.Message;
 import org.gyt.web.model.MessageType;
 import org.springframework.beans.factory.annotation.Autowired;

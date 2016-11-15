@@ -1,7 +1,7 @@
 package org.gyt.web.controller;
 
-import org.gyt.web.api.service.UserService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.UserService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

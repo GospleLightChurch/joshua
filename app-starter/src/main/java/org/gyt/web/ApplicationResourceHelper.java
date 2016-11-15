@@ -1,8 +1,8 @@
 package org.gyt.web;
 
-import org.gyt.web.api.service.FellowshipService;
-import org.gyt.web.api.service.RoleService;
-import org.gyt.web.api.service.UserService;
+import org.gyt.web.core.service.FellowshipService;
+import org.gyt.web.core.service.RoleService;
+import org.gyt.web.core.service.UserService;
 import org.gyt.web.model.Authority;
 import org.gyt.web.model.User;
 import org.slf4j.Logger;

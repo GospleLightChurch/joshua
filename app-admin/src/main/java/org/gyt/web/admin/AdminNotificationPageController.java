@@ -1,10 +1,9 @@
 package org.gyt.web.admin;
 
 import org.apache.commons.lang3.StringUtils;
-import org.gyt.web.api.service.NotificationService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.NotificationService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

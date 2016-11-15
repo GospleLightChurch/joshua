@@ -1,7 +1,7 @@
 package org.gyt.web.controller;
 
-import org.gyt.web.api.service.ArticleService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.ArticleService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
 import org.springframework.beans.factory.annotation.Autowired;

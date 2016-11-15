@@ -1,6 +1,6 @@
 package org.gyt.web.controller;
 
-import org.gyt.web.api.service.ArticleService;
+import org.gyt.web.core.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;

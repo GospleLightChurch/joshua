@@ -1,7 +1,7 @@
 package org.gyt.web.admin;
 
-import org.gyt.web.api.service.FellowshipService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.FellowshipService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
 package org.gyt.web.controller;
 
-import org.gyt.web.api.service.ArticleService;
-import org.gyt.web.api.service.FellowshipService;
-import org.gyt.web.api.service.SlidePictureService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.ArticleService;
+import org.gyt.web.core.service.FellowshipService;
+import org.gyt.web.core.service.SlidePictureService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.Message;
 import org.gyt.web.model.MessageType;

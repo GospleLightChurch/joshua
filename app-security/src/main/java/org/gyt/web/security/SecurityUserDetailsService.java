@@ -1,6 +1,6 @@
 package org.gyt.web.security;
 
-import org.gyt.web.api.service.UserService;
+import org.gyt.web.core.service.UserService;
 import org.gyt.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

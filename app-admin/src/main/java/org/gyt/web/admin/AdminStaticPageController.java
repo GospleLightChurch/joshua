@@ -1,7 +1,7 @@
 package org.gyt.web.admin;
 
-import org.gyt.web.api.service.SlidePictureService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
+import org.gyt.web.core.service.SlidePictureService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

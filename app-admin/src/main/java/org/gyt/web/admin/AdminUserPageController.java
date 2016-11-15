@@ -1,11 +1,11 @@
 package org.gyt.web.admin;
 
 import org.apache.commons.lang3.StringUtils;
-import org.gyt.web.api.service.FellowshipService;
-import org.gyt.web.api.service.RoleService;
-import org.gyt.web.api.service.UserService;
-import org.gyt.web.api.utils.ModelAndViewUtils;
-import org.gyt.web.api.utils.PaginationComponent;
+import org.gyt.web.core.service.FellowshipService;
+import org.gyt.web.core.service.RoleService;
+import org.gyt.web.core.service.UserService;
+import org.gyt.web.core.utils.ModelAndViewUtils;
+import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
