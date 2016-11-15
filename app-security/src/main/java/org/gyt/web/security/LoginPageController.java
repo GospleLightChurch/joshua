@@ -1,4 +1,4 @@
-package org.gyt.web.controller;
+package org.gyt.web.security;
 
 import org.gyt.web.core.service.RoleService;
 import org.gyt.web.core.service.UserService;

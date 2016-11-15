@@ -1,4 +1,4 @@
-package org.gyt.web.controller;
+package org.gyt.web.security;
 
 import org.gyt.web.core.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
