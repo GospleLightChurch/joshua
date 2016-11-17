@@ -12,7 +12,16 @@
 
 <!-- 用户登录组件 -->
 <div class="ui joshua main container">
-    <div th:replace="fragment/user-info :: info(${user})"></div>
+    <div class="ui joshua top attached tabular menu">
+        <div class="active item" data-tab="info">个人资料</div>
+        <div class="item" data-tab="password">更改密码</div>
+    </div>
+    <div class="ui bottom attached active tab segment" data-tab="info">
+        <div th:replace="fragment/user-info :: info(${user})"></div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="password">
+        <div th:replace="fragment/user-info :: password(${user})"></div>
+    </div>
 </div>
 
 <!--/* 引用页脚组件 */-->
