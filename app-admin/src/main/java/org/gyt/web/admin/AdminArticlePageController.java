@@ -44,7 +44,7 @@ public class AdminArticlePageController {
     public ModelAndView getMine(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthor(pageable, user);
+        Page<Article> articlePage = articleRepository.findByAuthorOrderByLastModifiedTimeDesc(pageable, user);
         modelAndView.addObject("type", "mine");
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/mine");
@@ -55,7 +55,7 @@ public class AdminArticlePageController {
     public ModelAndView getRaw(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthorAndStatus(pageable, user, ArticleStatus.RAW);
+        Page<Article> articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.RAW);
         modelAndView.addObject("type", "raw");
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/raw");
@@ -66,7 +66,7 @@ public class AdminArticlePageController {
     public ModelAndView getReject(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthorAndStatus(pageable, user, ArticleStatus.REJECTED);
+        Page<Article> articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.REJECTED);
         modelAndView.addObject("type", "reject");
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/reject");
@@ -79,9 +79,9 @@ public class AdminArticlePageController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Page<Article> articlePage;
         if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-            articlePage = articleRepository.findByStatus(pageable, ArticleStatus.AUDITING);
+            articlePage = articleRepository.findByStatusOrderByLastModifiedTimeDesc(pageable, ArticleStatus.AUDITING);
         } else {
-            articlePage = articleRepository.findByAuthorAndStatus(pageable, user, ArticleStatus.AUDITING);
+            articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.AUDITING);
         }
         modelAndView.addObject("type", "audit");
         modelAndView.addObject("items", articlePage.getContent());
@@ -95,9 +95,9 @@ public class AdminArticlePageController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Page<Article> articlePage;
         if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-            articlePage = articleRepository.findByStatus(pageable, ArticleStatus.PUBLISHED);
+            articlePage = articleRepository.findByStatusOrderByLastModifiedTimeDesc(pageable, ArticleStatus.PUBLISHED);
         } else {
-            articlePage = articleRepository.findByAuthorAndStatus(pageable, user, ArticleStatus.PUBLISHED);
+            articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.PUBLISHED);
         }
         modelAndView.addObject("type", "publish");
         modelAndView.addObject("items", articlePage.getContent());

@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Page<Article> findByAuthor(Pageable pageable, User author);
+    Page<Article> findByAuthorOrderByLastModifiedTimeDesc(Pageable pageable, User author);
 
-    Page<Article> findByStatus(Pageable pageable, ArticleStatus status);
+    Page<Article> findByStatusOrderByLastModifiedTimeDesc(Pageable pageable, ArticleStatus status);
 
-    Page<Article> findByAuthorAndStatus(Pageable pageable, User author, ArticleStatus status);
+    Page<Article> findByAuthorAndStatusOrderByLastModifiedTimeDesc(Pageable pageable, User author, ArticleStatus status);
 }
