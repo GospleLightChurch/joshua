@@ -89,18 +89,7 @@
                         <div class="ui icon username button">
                             <i class="user icon"></i> <span sec:authentication="principal.nickname"></span>
                         </div>
-                        <div class="ui popup">
-                            <div class="ui vertical menu">
-                                <a class="item" th:href="@{/info}">我的信息</a>
-                                <a class="item" th:href="@{/password}">更改密码</a>
-                                <a class="item" th:href="@{/admin/article/new}"
-                                   sec:authorize="hasRole('ROLE_ADMIN_ACCESS')">发布文章</a>
-                                <a class="item user logout"> 退出
-                                    <form th:action="@{/logout}" method="post">
-                                    </form>
-                                </a>
-                            </div>
-                        </div>
+                        <div th:replace="fragment/navigation :: menu-popup"></div>
                     </div>
                 </div>
             </nav>
@@ -125,18 +114,7 @@
                     <div class="ui icon username button">
                         <i class="user icon"></i> <span sec:authentication="principal.nickname"></span>
                     </div>
-                    <div class="ui popup">
-                        <div class="ui vertical menu">
-                            <a class="item" th:href="@{/info}">我的信息</a>
-                            <a class="item" th:href="@{/password}">更改密码</a>
-                            <a class="item" th:href="@{/admin/article/new}"
-                               sec:authorize="hasRole('ROLE_ADMIN_ACCESS')">发布文章</a>
-                            <a class="item user logout"> 退出
-                                <form th:action="@{/logout}" method="post">
-                                </form>
-                            </a>
-                        </div>
-                    </div>
+                    <div th:replace="fragment/navigation :: menu-popup"></div>
                 </div>
 
                 <div class="joshua right menu open">
@@ -235,6 +213,17 @@
             </div>
         </div>
     </div>
+</div>
+
+<div th:fragment="menu-popup" class="ui popup joshua user menu">
+    <a class="ui basic fluid label" th:href="@{/info}">我的信息</a>
+    <a class="ui basic fluid label" th:href="@{/password}">更改密码</a>
+    <a class="ui basic fluid label" th:href="@{/admin/article/new}"
+       sec:authorize="hasRole('ROLE_ADMIN_ACCESS')">发布文章</a>
+    <a class="ui basic fluid center aligned label user logout"> 退出
+        <form th:action="@{/logout}" method="post">
+        </form>
+    </a>
 </div>
 <script src="../../public/assets/js/joshua.min.js"></script>
 </body>
