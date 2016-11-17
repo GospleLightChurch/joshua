@@ -40,6 +40,16 @@
     border: none;
 }
 
+.joshua.user.menu.popup {
+    background: url("../images/background-2.png"), rgb(240, 240, 240);
+}
+
+.joshua.user.menu.popup a {
+    background: url("../images/background-2.png"), rgb(240, 240, 240);
+    margin-bottom: .5em;
+    text-align: center;
+}
+
 /*
     图片显示框架定义
 */

@@ -23,13 +23,13 @@ export default class Navigation {
             $(".joshua.mobile.menu").toggle();
         });
 
-        $('.user.logout.item').on("click", this.logout);
+        $('.ui.user.logout').on("click", this.logout);
     }
 
     logout() {
         new Dialog("注销", "您确定要注销吗？", function () {
             var formData = new FormData();
-            formData.append("_csrf", $(".user.logout.item form input[name='_csrf']").val());
+            formData.append("_csrf", $(".ui.user.logout form input[name='_csrf']").val());
 
             $.ajax({
                 url: "/logout",

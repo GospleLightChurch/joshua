@@ -48,6 +48,8 @@ class UserInfoPage extends BasePage {
                 }
             });
         });
+
+        $(".joshua.tabular .item").tab();
     }
 }
 

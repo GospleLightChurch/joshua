@@ -10,16 +10,17 @@
 </head>
 
 <body>
+
 <div th:fragment="info (user)" class="ui grid">
     <div class="column">
-        <div class="ui success message" th:if="${publishSuccess}">
-            <div class="content">更新我的信息成功</div>
+        <div class="ui success message" th:if="${param.publishSuccess}">
+            <div class="content">更新成功</div>
         </div>
-        <div class="ui error message" th:if="${publishFailed}">
-            <div class="content">更新我的信息失败</div>
+        <div class="ui error message" th:if="${param.publishFailed}">
+            <div class="content">更新失败</div>
         </div>
         <form class="ui form" th:action="@{/api/user/info}" th:object="${user}" method="post">
-            <h4 class="ui dividing header">我的账户名: <label class="ui black label" th:utext="*{username}"></label></h4>
+            <h4 class="ui header">我的账户名: <label class="ui basic grey label" th:utext="*{username}"></label></h4>
             <div class="inline field">
                 <label>我的昵称</label>
                 <input type="text" th:field="*{nickname}"/>
@@ -67,11 +68,10 @@
 </div>
 
 <div th:fragment="password (user)" class="ui grid">
-    <div th:replace="fragment/layout :: header (title='更改密码')"></div>
     <div class="row">
         <div class="column">
             <div class="ui labeled input">
-                <div class="ui label">新的密码</div>
+                <div class="ui basic label">新的密码</div>
                 <input id="new-password" type="password" placeholder="请输入新的密码"/>
             </div>
         </div>
@@ -79,7 +79,7 @@
     <div class="row">
         <div class="column">
             <div class="ui labeled input">
-                <div class="ui label">确认密码</div>
+                <div class="ui basic label">确认密码</div>
                 <input id="confirm-password" type="password" placeholder="请再输入一次新密码"/>
             </div>
         </div>
@@ -93,6 +93,5 @@
     </form>
 </div>
 
-<script src="../../public/assets/js/joshua.min.js"></script>
 </body>
 </html>
