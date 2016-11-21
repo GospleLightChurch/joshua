@@ -1,10 +1,16 @@
 package org.gyt.web.controller;
 
-import org.gyt.web.core.service.ArticleService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
+import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
+import org.gyt.web.model.User;
+import org.gyt.web.repository.repository.ArticleRepository;
+import org.gyt.web.repository.repository.FellowshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,28 +21,82 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Administrator on 2016/9/16.
  */
 @RestController
-@RequestMapping("/article")
 public class ArticlePageController {
 
     @Autowired
-    private ArticleService articleService;
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    private FellowshipRepository fellowshipRepository;
 
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
 
-    @RequestMapping("/{id}.html")
+    @Autowired
+    private PaginationComponent paginationComponent;
+
+    @RequestMapping("/center/article")
+    public ModelAndView centerPage(Pageable pageable) {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("center-article");
+        User user = modelAndViewUtils.getCurrentUser();
+        Page<Article> articlePage = articleRepository.findByAuthorOrderByStatusDescLastModifiedTimeDesc(pageable, user);
+        modelAndView.addObject("items", articlePage.getContent());
+        paginationComponent.addPagination(modelAndView, articlePage, "/center/article");
+        return modelAndView;
+    }
+
+    @RequestMapping("/center/article/new")
+    public ModelAndView newEditorPage() {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article-editor");
+        User user = modelAndViewUtils.getCurrentUser();
+        modelAndView.addObject("article", new Article());
+        modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        return modelAndView;
+    }
+
+    @RequestMapping("/article/{id}/edit")
+    public ModelAndView editPage(@PathVariable Long id) {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article-editor");
+        User user = modelAndViewUtils.getCurrentUser();
+        Article article = articleRepository.findOne(id);
+
+        if (user == null || article == null || !article.getAuthor().equals(user)) {
+            modelAndViewUtils.convertTo404(modelAndView, "您访问的文章不存在或者没有权限");
+        } else {
+            modelAndView.addObject("article", article);
+            modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/article/{id}/preview")
+    public ModelAndView previewPage(@PathVariable Long id) {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article");
+        User user = modelAndViewUtils.getCurrentUser();
+        Article article = articleRepository.findOne(id);
+
+        if (user == null || article == null || !article.getAuthor().equals(user)) {
+            modelAndViewUtils.convertTo404(modelAndView, "您访问的文章不存在或者没有权限");
+        } else {
+            modelAndView.addObject("item", article);
+            modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/article/{id}.html")
     public ModelAndView detailsHtmlPage(@PathVariable Long id) {
         return getDetails(id);
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/article/{id}")
     public ModelAndView detailsPage(@PathVariable Long id) {
         return getDetails(id);
     }
 
     private ModelAndView getDetails(Long id) {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article");
-        Article article = articleService.get(id);
+        Article article = articleRepository.findOne(id);
 
         if (null == article || article.isDisable() || !article.getStatus().equals(ArticleStatus.PUBLISHED)) {
             modelAndViewUtils.convertTo404(modelAndView, "文章不存在或者未发布");
@@ -53,6 +113,10 @@ public class ArticlePageController {
         modelAndView.addObject("item", article);
         modelAndView.addObject("user", article.getAuthor());
 
-        articleService.increasePageView(article);
+        if (article.getPageView() == null) {
+            article.setPageView(1L);
+        } else {
+            article.setPageView(article.getPageView() + 1);
+        }
     }
 }

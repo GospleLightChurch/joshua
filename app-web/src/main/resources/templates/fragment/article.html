@@ -66,7 +66,7 @@
 <!-- 前端文章列表 - 文章封面组件 -->
 <a th:fragment="cover (article)" class="ui tiny image" th:href="@{'/article/' + ${article.id} + '.html'}" target="_blank">
     <img th:if="${article.cover == null}" th:src="@{/assets/images/article-cover.jpg}"/>
-    <img th:if="${article.cover != null}" th:src="@{'/api/article/cover/' + ${article.id}}"/>
+    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"/>
 </a>
 
 <!-- 前端文章列表 - 文章描述信息 -->
@@ -100,7 +100,7 @@
         <div class="container"></div>
         <input id="article-id" th:value="${article.id}" type="hidden"/>
     </div>
-    <div th:replace="fragment/widget :: text-loader('正在飞一般地加载文章')"></div>
+    <div th:replace="fragment/widget :: text-loader('文章正在通往天国的路上')"></div>
 </div>
 
 </body>

@@ -7,7 +7,7 @@ import "../lib/quill-core";
 import "lightgallery";
 
 const EDITOR_CONFIG = {
-    PLACEHOLDER: "请输入文章内容，文章大小最多为20M，超过以后会保存失败",
+    PLACEHOLDER: "在这里编写您的文章",
     TOOLBAR: [
         /* 基本控件 */
         [{'header': [1, 2, 3, 4, 5, 6, false]}],
@@ -35,7 +35,7 @@ export default class Editor {
     }
 
     loadAsEditor() {
-        this.editor = new Quill(".article-editor .container", {
+        this.editor = new Quill("#article-editor .container", {
             placeholder: EDITOR_CONFIG.PLACEHOLDER,
             modules: {
                 toolbar: EDITOR_CONFIG.TOOLBAR
@@ -45,17 +45,7 @@ export default class Editor {
     }
 
     loadAsReader() {
-        this.editor = new Quill(".article-reader .container", {
-            modules: {
-                toolbar: false
-            },
-            theme: EDITOR_CONFIG.THEME,
-            readOnly: true
-        });
-    }
-
-    loadAsAuditor() {
-        this.editor = new Quill(".article-audit .container", {
+        this.editor = new Quill("#article-reader .container", {
             modules: {
                 toolbar: false
             },
@@ -66,7 +56,8 @@ export default class Editor {
 
     loadContent(id, onSuccess) {
         let editor = this.editor;
-        if (id) {
+        if (id && id > 0) {
+            $(".ui.dimmer").dimmer("show");
             $.ajax({
                 url: "/article/content/" + id,
                 type: "get",
@@ -80,14 +71,19 @@ export default class Editor {
                         if (onSuccess) {
                             onSuccess.apply(editor);
                         }
+
+                        $(".ui.dimmer").dimmer("hide");
                     }
+                },
+                error: () => {
+                    $(".ui.dimmer").dimmer("hide");
                 }
             });
         }
     }
 
     initContent() {
-        var reader = $(".article-reader");
+        var reader = $("#article-reader");
 
         reader.find("img").each(function () {
             var imgSrc = $(this).attr("src");
@@ -99,6 +95,6 @@ export default class Editor {
         });
 
         reader.removeAttr("style");
-        $(".article-reader + .ui.dimmer").removeClass("active");
+        $(".ui.dimmer").removeClass("active");
     }
 }

@@ -24,7 +24,7 @@
                     <div class="ui segment">
                         <label class="ui icon button fluid">文章封面</label>
                         <div class="ui dividing header" style="margin-top: 1rem"></div>
-                        <div th:replace="adminFragment/admin-article :: getArticleCover(${item})"></div>
+                        <div th:replace="article/layout :: cover(${article})"></div>
                     </div>
                 </div>
                 <div class="ten wide column">
@@ -32,24 +32,24 @@
                         <tbody>
                         <tr>
                             <td>标题</td>
-                            <td class="input title" th:utext="${item.title}">标题</td>
+                            <td class="input title" th:utext="${article.title}">标题</td>
                         </tr>
                         <tr>
                             <td>所属团契</td>
-                            <td class="input fellowship" th:utext="${item.fellowship.displayName}">所属团契</td>
+                            <td class="input fellowship" th:utext="${article.fellowship.displayName}">所属团契</td>
                         </tr>
                         <tr>
                             <td>描述</td>
-                            <td class="input description" th:utext="${item.description}">描述</td>
+                            <td class="input description" th:utext="${article.description}">描述</td>
                         </tr>
                         <tr>
                             <td>作者</td>
-                            <td class="input author" th:utext="${item.author.getDisplayName()}">作者</td>
+                            <td class="input author" th:utext="${article.author.getDisplayName()}">作者</td>
                         </tr>
                         <tr>
                             <td>文章状态</td>
                             <td>
-                                <div th:replace="adminFragment/admin-article :: covertToStatusLabel (${item})"></div>
+                                <div th:replace="article/table :: covertToStatusLabel (${article})"></div>
                             </td>
                         </tr>
                         </tbody>
@@ -64,12 +64,11 @@
         </div>
         <div class="sixteen wide column">
             <div class="ui horizontal divider">文章正文</div>
-            <div th:replace="fragment/article-editor :: article-audit(${item})">文章审核</div>
-            <div th:replace="fragment/article-editor :: dimmer('正在处理文章')"></div>
+            <div th:replace="article/editor :: reader(${article})"></div>
+            <div th:replace="article/layout :: loader"></div>
         </div>
     </div>
-    <form class="ui admin user form" th:action="@{/}" th:object="${users}" method="post" style="display: none">
-    </form>
+    <div th:replace="fragment/layout :: csrf"></div>
 </div>
 
 <script th:src="@{/assets/js/adminArticleAuditor.js}"></script>

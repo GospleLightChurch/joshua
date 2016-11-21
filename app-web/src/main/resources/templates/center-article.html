@@ -5,27 +5,27 @@
     <title>光音堂</title>
     <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
 </head>
-<body>
 <div th:replace="fragment/navigation :: primary">导航栏</div>
 
+<!-- 用户登录组件 -->
 <div class="ui joshua main container">
     <div class="ui stackable grid">
-        <div class="sixteen wide column">
-            <div th:replace="fragment/layout :: header (${item.title})">文章标题</div>
+        <div class="twelve wide column">
+            <div th:replace="fragment/layout :: header (title='文章中心')"></div>
+            <div th:replace="article/layout :: toolbar"></div>
+            <div th:replace="article/table :: user-table(${items})"></div>
         </div>
-        <div class="sixteen wide column">
-            <div th:replace="fragment/article :: article-status (${item})">文章状态栏</div>
-        </div>
-        <div class="sixteen wide column">
-            <div th:replace="article/editor :: reader(${item})"></div>
-            <div th:replace="article/layout :: loader"></div>
+        <div class="four wide column">
+            <div th:replace="fragment/navigation :: secondary"></div>
         </div>
     </div>
+    <div th:replace="fragment/layout :: csrf"></div>
 </div>
 
 <!--/* 引用页脚组件 */-->
 <div th:replace="fragment/footer :: footer">页脚</div>
-
-<script th:src="@{/assets/js/article.js}"></script>
+<!--/* 引用javascript脚本 */-->
+<script th:src="@{/assets/js/articleCenter.js}"></script>
+<body>
 </body>
 </html>

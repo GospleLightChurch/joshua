@@ -31,6 +31,6 @@ class ArticlePage extends BasePage {
 $(document).ready(() => {
     var page = new ArticlePage();
     page.editor.loadAsReader();
-    page.editor.loadContent($("#article-id").val(), page.editor.initContent);
+    page.editor.loadContent($("#article-reader").data("id"), page.editor.initContent);
     page.initQRCode();
 });

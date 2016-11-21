@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment/header :: head">
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:fragment="editor (article)" id="article-editor" th:attr="data-id=${article.id != null ? article.id : -1}">
+    <div class="container"></div>
+</div>
+
+<div th:fragment="reader (article)" id="article-reader" style="height: 300px"
+     th:attr="data-id=${article.id != null ? article.id : -1}">
+    <div class="container"></div>
+</div>
+</body>
+</html>

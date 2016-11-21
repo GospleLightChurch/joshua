@@ -85,18 +85,6 @@
         <div class="article item">
             <div class="title header"><i class="dropdown icon"></i> 文章管理</div>
             <div class="content">
-                <a class="item" th:href="@{/admin/article/mine}">
-                    我的文章 <span class="ui primary left pointing label"
-                               th:utext="${articleCountModel.myArticleCount}">0</span>
-                </a>
-                <a class="item" th:href="@{/admin/article/raw}">
-                    草稿箱 <span class="ui primary left pointing label"
-                              th:utext="${articleCountModel.rawArticleCount}">0</span>
-                </a>
-                <a class="item" th:href="@{/admin/article/reject}">
-                    驳回文章 <span class="ui primary left pointing label"
-                               th:utext="${articleCountModel.rejectArticleCount}">0</span>
-                </a>
                 <a class="item" th:href="@{/admin/article/audit}">
                     待审核文章 <span class="ui primary left pointing label"
                                 th:utext="${articleCountModel.auditArticleCount}">0</span>

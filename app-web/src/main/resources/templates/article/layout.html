@@ -1,0 +1,59 @@
+<!--
+    文章管理基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台布局</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+</head>
+<body>
+
+<div th:fragment="toolbar" class="ui segment">
+    <a class="ui icon fluid button" th:href="@{/center/article/new}"> <i class="file icon"></i> 新建文章</a>
+</div>
+
+<div th:fragment="editor-title (article)" class="ui labeled fluid input">
+    <div class="ui green label">标题</div>
+    <input id="article-title" th:value="${article.title}" maxlength="48" placeholder="请输入文章标题，最多48个字"/>
+</div>
+
+<div th:fragment="editor-desc (article)" class="ui labeled fluid input">
+    <div class="ui green label">描述</div>
+    <input id="article-desc" th:value="${article.description}" maxlength="48" placeholder="请输入文章描述，最多48个字"/>
+</div>
+
+<div th:fragment="editor-fellowship (article)" id="article-fellowship"
+     class="ui fellowship search selection fluid dropdown">
+    <input type="hidden" th:value="${article.fellowship != null ? article.fellowship.name : null}"/>
+    <i class="dropdown icon"></i>
+    <div class="default text">所属团契</div>
+    <div class="menu">
+        <div th:each="value : ${fellowship}" class="item" th:attr="data-value=${value.name}"
+             th:utext="${value.displayName}">
+            团契名称
+        </div>
+    </div>
+</div>
+
+<div th:fragment="editor-cover (article)" class="ui segment">
+    <label for="file" class="ui icon button fluid"> <i class="file icon"></i> 请选择文章封面</label>
+    <input type="file" id="file" name="file" style="display:none" class="joshua cover input"/>
+    <div class="ui dividing header" style="margin-top: 1rem"></div>
+    <div th:replace="article/layout :: cover(${article})"></div>
+</div>
+
+<div th:fragment="loader" class="ui inverted dimmer">
+    <div class="ui text loader">文章正在飞速处理中</div>
+</div>
+
+<div th:fragment="cover (article)">
+    <img th:if="${article.cover == null}" th:src="@{/assets/images/placeholder.png}"
+         id="cover-picture" class="ui rounded fluid image"/>
+    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"
+         id="cover-picture" class="ui rounded fluid image"/>
+</div>
+</body>
+</html>

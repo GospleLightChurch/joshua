@@ -216,10 +216,10 @@
 </div>
 
 <div th:fragment="menu-popup" class="ui popup joshua user menu">
+    <a class="ui basic fluid label" th:href="@{/center/article}">我的文章</a>
+    <a class="ui basic fluid label" th:href="@{/center/user}">个人中心</a>
     <a sec:authorize="hasRole('ROLE_ADMIN_ACCESS')"
        class="ui basic fluid label" th:href="@{/admin}">后台管理</a>
-    <!--<a class="ui basic fluid label" th:href="@{/article}">我的文章</a>-->
-    <a class="ui basic fluid label" th:href="@{/center}">个人中心</a>
     <a class="ui basic fluid label user logout"> 退出
         <form th:action="@{/logout}" method="post">
         </form>

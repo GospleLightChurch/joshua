@@ -26,25 +26,25 @@ class AdminArticleAuditorPage extends AdminBasePage {
 
     publish() {
         let editor = this;
-        let id = $("#article-id").val();
+        let id = $("#article-reader").data("id");
 
         new Dialog("发布文章", "确定要发布文章？ 文章发布以后即可在网站访问", function () {
             editor.showDimmer();
             var formData = new FormData();
-            formData.append("_csrf", $(".ui.admin.user.form input[name='_csrf']").val());
-            formData.append("id", id);
+            formData.append("_csrf", $(".joshua.csrf input[name='_csrf']").val());
+            formData.append("type", "publish");
 
             $.ajax({
-                url: "/api/article/publish",
+                url: "/api/article/" + id,
                 type: "post",
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (status) {
-                    if ("success" == status) {
+                success: function (response) {
+                    if ("OK" == response.status) {
                         window.location.reload();
                     } else {
-                        new Dialog("发布文章", "发布失败，原因:" + status, function () {
+                        new Dialog("发布文章", "发布失败，原因:" + response.message, function () {
                             editor.hideDimmer();
                         }).error();
                     }
@@ -60,25 +60,25 @@ class AdminArticleAuditorPage extends AdminBasePage {
 
     reject() {
         let editor = this;
-        let id = $("#article-id").val();
+        let id = $("#article-reader").data("id");
 
         new Dialog("驳回文章", "确定要驳回文章？", function () {
             editor.showDimmer();
             var formData = new FormData();
-            formData.append("_csrf", $(".ui.admin.user.form input[name='_csrf']").val());
-            formData.append("id", id);
+            formData.append("_csrf", $(".joshua.csrf input[name='_csrf']").val());
+            formData.append("type", "reject");
 
             $.ajax({
-                url: "/api/article/reject",
+                url: "/api/article/" + id,
                 type: "post",
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (status) {
-                    if ("success" == status) {
+                success: function (response) {
+                    if ("OK" == response.status) {
                         window.location.reload();
                     } else {
-                        new Dialog("驳回文章", "驳回失败，原因:" + status, function () {
+                        new Dialog("驳回文章", "驳回失败，原因:" + response.message, function () {
                             editor.hideDimmer();
                         }).error();
                     }
@@ -104,6 +104,6 @@ class AdminArticleAuditorPage extends AdminBasePage {
 $(document).ready(()=> {
     var page = new AdminArticleAuditorPage();
     page.init();
-    page.editor.loadAsAuditor();
-    page.editor.loadContent($("#article-id").val(), page.editor.initContent);
+    page.editor.loadAsReader();
+    page.editor.loadContent($("#article-reader").data("id"), page.editor.initContent);
 });

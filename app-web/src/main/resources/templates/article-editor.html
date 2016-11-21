@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment/header :: head">
+    <meta charset="UTF-8"/>
+    <title>光音堂</title>
+    <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="fragment/navigation :: primary">导航栏</div>
+
+<div class="ui joshua main container">
+    <div th:replace="fragment/layout :: header ('文章编辑')"></div>
+    <div class="ui stackable grid">
+        <div class="four wide column">
+            <div th:replace="article/layout :: editor-fellowship(${article})"></div>
+            <div th:replace="article/layout :: editor-cover(${article})"></div>
+            <div class="ui horizontal divider">操作</div>
+            <button class="ui save article fluid button">保存</button>
+        </div>
+        <div class="twelve wide column">
+            <div th:replace="article/layout :: editor-title(${article})"></div>
+            <div class="ui horizontal hidden divider"></div>
+            <div th:replace="article/layout :: editor-desc(${article})"></div>
+            <div class="ui horizontal hidden divider"></div>
+            <div th:replace="article/editor :: editor(${article})"></div>
+        </div>
+    </div>
+    <div th:replace="article/layout :: loader"></div>
+    <div th:replace="fragment/layout :: csrf"></div>
+</div>
+
+<!--/* 引用页脚组件 */-->
+<div th:replace="fragment/footer :: footer">页脚</div>
+
+<script th:src="@{/assets/js/editor.js}"></script>
+</body>
+</html>
