@@ -55,7 +55,7 @@
 <div th:fragment="getArticleCover (article)">
     <img th:if="${article.cover == null}" th:src="@{/assets/images/placeholder.png}"
          id="cover-picture" class="ui rounded fluid image"/>
-    <img th:if="${article.cover != null}" th:src="@{'/api/article/cover/' + ${article.id}}"
+    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"
          id="cover-picture" class="ui rounded fluid image"/>
 </div>
 
