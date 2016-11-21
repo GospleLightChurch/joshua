@@ -7,7 +7,7 @@ import "../lib/quill-core";
 import "lightgallery";
 
 const EDITOR_CONFIG = {
-    PLACEHOLDER: "请输入文章内容，文章大小最多为20M，超过以后会保存失败",
+    PLACEHOLDER: "在这里编写您的文章",
     TOOLBAR: [
         /* 基本控件 */
         [{'header': [1, 2, 3, 4, 5, 6, false]}],
@@ -66,7 +66,8 @@ export default class Editor {
 
     loadContent(id, onSuccess) {
         let editor = this.editor;
-        if (id) {
+        if (id && id > 0) {
+            $(".ui.dimmer").dimmer("show");
             $.ajax({
                 url: "/article/content/" + id,
                 type: "get",
@@ -80,7 +81,12 @@ export default class Editor {
                         if (onSuccess) {
                             onSuccess.apply(editor);
                         }
+
+                        $(".ui.dimmer").dimmer("hide");
                     }
+                },
+                error: () => {
+                    $(".ui.dimmer").dimmer("hide");
                 }
             });
         }

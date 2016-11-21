@@ -38,7 +38,7 @@ public class ArticlePageController {
     @RequestMapping("/center/article")
     public ModelAndView centerPage(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("center-article");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = modelAndViewUtils.getCurrentUser();
         Page<Article> articlePage = articleRepository.findByAuthorOrderByStatusDescLastModifiedTimeDesc(pageable, user);
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/center/article");
@@ -48,9 +48,39 @@ public class ArticlePageController {
     @RequestMapping("/center/article/new")
     public ModelAndView newEditorPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article-editor");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = modelAndViewUtils.getCurrentUser();
         modelAndView.addObject("article", new Article());
         modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        return modelAndView;
+    }
+
+    @RequestMapping("/article/{id}/edit")
+    public ModelAndView editPage(@PathVariable Long id) {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article-editor");
+        User user = modelAndViewUtils.getCurrentUser();
+        Article article = articleRepository.findOne(id);
+
+        if (user == null || article == null || !article.getAuthor().equals(user)) {
+            modelAndViewUtils.convertTo404(modelAndView, "您访问的文章不存在或者没有权限");
+        } else {
+            modelAndView.addObject("article", article);
+            modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/article/{id}/preview")
+    public ModelAndView previewPage(@PathVariable Long id) {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article");
+        User user = modelAndViewUtils.getCurrentUser();
+        Article article = articleRepository.findOne(id);
+
+        if (user == null || article == null || !article.getAuthor().equals(user)) {
+            modelAndViewUtils.convertTo404(modelAndView, "您访问的文章不存在或者没有权限");
+        } else {
+            modelAndView.addObject("item", article);
+            modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
+        }
         return modelAndView;
     }
 

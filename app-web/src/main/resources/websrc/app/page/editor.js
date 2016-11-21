@@ -45,7 +45,7 @@ class EditorPage extends BasePage {
     saveArticle() {
         var editor = this;
         var quill = this.editor.editor;
-        var id = $("#article-id").val();
+        var id = $("#article-editor").data("id");
         var title = $("#article-title").val();
         var fellowship = $("#article-fellowship").dropdown('get value');
 
@@ -79,29 +79,16 @@ class EditorPage extends BasePage {
         );
 
         $.ajax({
-            url: "/api/article/save",
+            url: "/api/article",
             type: "post",
             data: formData,
             processData: false,
             contentType: false,
-            xhr: function () {
-                var myXhr = $.ajaxSettings.xhr();
-
-                if (myXhr.upload) {
-                    myXhr.upload.addEventListener("progress", function (e) {
-                        if (e.lengthComputable) {
-                            console.log("上传数据：" + e.loaded + " - " + e.total);
-                        }
-                    }, false);
-                }
-
-                return myXhr;
-            },
-            success: function (status) {
-                if (parseInt(status)) {
-                    window.location = '/admin/article/' + status + '/edit';
+            success: function (response) {
+                if (response.status == 'OK') {
+                    window.location = '/article/' + response.message + '/edit';
                 } else {
-                    new Dialog("保存文章", "保存失败，原因：" + status, function () {
+                    new Dialog("保存文章", "保存失败，原因：" + response.message, function () {
                         editor.hideDimmer();
                     }).error();
                 }
@@ -127,5 +114,5 @@ $(document).ready(() => {
     var page = new EditorPage();
     page.init();
     page.editor.loadAsEditor();
-    page.editor.loadContent($("#article-id").val(), page.editor.initContent);
+    page.editor.loadContent($("#article-editor").data("id"), page.editor.initContent);
 });

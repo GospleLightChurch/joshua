@@ -1,7 +1,9 @@
 package org.gyt.web.core.utils;
 
 import org.gyt.web.core.service.ArticleService;
+import org.gyt.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,5 +45,12 @@ public class ModelAndViewUtils {
         modelAndView.setViewName("404");
         modelAndView.addObject("message", message);
         modelAndView.addObject("articles", articleService.getLatestArticles());
+    }
+
+    public User getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+            return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        return null;
     }
 }

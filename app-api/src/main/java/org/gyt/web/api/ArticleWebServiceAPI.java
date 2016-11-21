@@ -1,6 +1,8 @@
 package org.gyt.web.api;
 
 import org.gyt.web.core.service.ArticleService;
+import org.gyt.web.core.utils.OperationResponse;
+import org.gyt.web.core.utils.OperationResponseFactory;
 import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
 import org.gyt.web.model.User;
@@ -18,14 +20,14 @@ import java.util.Date;
  * Created by Administrator on 2016/9/18.
  */
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("/api")
 public class ArticleWebServiceAPI {
 
     @Autowired
     private ArticleService articleService;
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute Article article, @RequestParam(required = false) MultipartFile file) {
+    @RequestMapping(value = "/article", method = RequestMethod.POST)
+    public OperationResponse save(@ModelAttribute Article article, @RequestParam(required = false) MultipartFile file) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         try {
@@ -49,11 +51,11 @@ public class ArticleWebServiceAPI {
             }
 
             if (src.getStatus().equals(ArticleStatus.AUDITING)) {
-                return "该文章已经在审核中，不能修改在审核中的文章";
+                return OperationResponseFactory.error("该文章已经在审核中，不能修改在审核中的文章");
             }
 
             if (src.getStatus().equals(ArticleStatus.PUBLISHED)) {
-                return "该文章已经发布，不能修改已经发布的文章";
+                return OperationResponseFactory.error("该文章已经发布，不能修改已经发布的文章");
             }
         }
 
@@ -63,28 +65,61 @@ public class ArticleWebServiceAPI {
 
         article = articleService.createOrUpdate(article);
 
-        return article != null ? article.getId().toString() : "文章保存失败";
+        return article != null ? OperationResponseFactory.ok(article.getId().toString()) : OperationResponseFactory.error("文章保存失败");
     }
 
-    @RequestMapping(value = "/audit", method = RequestMethod.POST)
-    public String audit(@RequestParam Long id) {
+    @RequestMapping(value = "/article/{id}", method = RequestMethod.POST)
+    public OperationResponse manage(@PathVariable Long id, @RequestParam String type) {
+        if (type.equalsIgnoreCase("audit")) {
+            return audit(id);
+        } else if (type.equalsIgnoreCase("delete")) {
+            return delete(id);
+        }
+
+        return null;
+    }
+
+    public OperationResponse delete(Long id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Article article = articleService.get(id);
+
+        if (article != null && article.getAuthor() != null && article.getAuthor().getUsername().equals(user.getUsername())) {
+
+            if (article.getStatus().equals(ArticleStatus.AUDITING)) {
+                return OperationResponseFactory.error("该文章已经在审核中，不能删除在审核中的文章");
+            }
+
+            if (article.getStatus().equals(ArticleStatus.PUBLISHED)) {
+                return OperationResponseFactory.error("该文章已经发布，不能删除已经发布的文章");
+            }
+
+            article.setAuthor(null);
+            article.setFellowship(null);
+            return !articleService.createOrUpdate(article).isDisable() ? OperationResponseFactory.ok("") : OperationResponseFactory.error("删除文章失败");
+        }
+
+        return OperationResponseFactory.error("文章不存在或者已经删除");
+    }
+
+
+    public OperationResponse audit(@RequestParam Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
         if (article != null && article.getAuthor().getUsername().equals(user.getUsername())) {
             if (article.getStatus().equals(ArticleStatus.PUBLISHED)) {
-                return "该文章已经发布";
+                return OperationResponseFactory.error("该文章已经发布");
             }
 
             if (article.getStatus().equals(ArticleStatus.AUDITING)) {
-                return "该文章已经在审核中";
+                return OperationResponseFactory.error("该文章已经在审核中");
             }
 
             article.setStatus(ArticleStatus.AUDITING);
-            return articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.AUDITING) ? "success" : "更新状态失败";
+            return articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.AUDITING) ? OperationResponseFactory.ok("") : OperationResponseFactory.error("更新状态失败");
         }
 
-        return "文章不存在或者权限不够";
+        return OperationResponseFactory.error("文章不存在或者权限不够");
     }
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
@@ -115,29 +150,6 @@ public class ArticleWebServiceAPI {
         }
 
         return "驳回文章失败";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam Long id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Article article = articleService.get(id);
-
-        if (article != null && article.getAuthor() != null && article.getAuthor().getUsername().equals(user.getUsername())) {
-
-            if (article.getStatus().equals(ArticleStatus.AUDITING)) {
-                return "该文章已经在审核中，不能删除在审核中的文章";
-            }
-
-            if (article.getStatus().equals(ArticleStatus.PUBLISHED)) {
-                return "该文章已经发布，不能删除已经发布的文章";
-            }
-
-            article.setAuthor(null);
-            article.setFellowship(null);
-            return !articleService.createOrUpdate(article).isDisable() ? "success" : "删除文章失败";
-        }
-
-        return "文章不存在或者已经删除";
     }
 
     @RequestMapping(value = "/disable", method = RequestMethod.POST)

@@ -61,11 +61,13 @@
             <div th:replace="article/table :: covertToStatusLabel (${article})"></div>
         </td>
         <td>
-            <a class="ui tiny button" th:href="@{'/article/' + ${article.id}}">查看</a>
+            <a class="ui tiny button" th:href="@{'/article/' + ${article.id} + '/preview'}">查看</a>
             <a th:if="${article.status.name() == 'RAW' or article.status.name() == 'REJECTED'}"
-               class="ui tiny button" target="_blank" th:href="@{'/article/' + ${article.id} + '/edit'}">编辑</a>
-            <a th:if="${article.status.name() == 'RAW'}" class="ui tiny button">发布</a>
-            <a th:if="${article.status.name() == 'RAW' or article.status.name() == 'REJECTED'}" class="ui tiny button">删除</a>
+               class="ui tiny button" th:href="@{'/article/' + ${article.id} + '/edit'}">编辑</a>
+            <a th:if="${article.status.name() == 'RAW'}"
+               th:attr="data-id=${article.id}" class="ui publish article tiny button">发布</a>
+            <a th:if="${article.status.name() == 'RAW' or article.status.name() == 'REJECTED'}"
+               th:attr="data-id=${article.id}" class="ui delete article tiny button">删除</a>
         </td>
     </tr>
     </tbody>

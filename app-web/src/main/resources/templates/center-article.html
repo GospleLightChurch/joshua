@@ -19,12 +19,13 @@
             <div th:replace="fragment/navigation :: secondary"></div>
         </div>
     </div>
+    <div th:replace="fragment/layout :: csrf"></div>
 </div>
 
 <!--/* 引用页脚组件 */-->
 <div th:replace="fragment/footer :: footer">页脚</div>
 <!--/* 引用javascript脚本 */-->
-<script th:src="@{/assets/js/normal.js}"></script>
+<script th:src="@{/assets/js/articleCenter.js}"></script>
 <body>
 </body>
 </html>
