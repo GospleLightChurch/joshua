@@ -6,6 +6,7 @@ import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
 import org.gyt.web.model.User;
 import org.gyt.web.repository.repository.ArticleRepository;
+import org.gyt.web.repository.repository.FellowshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public class ArticlePageController {
     private ArticleRepository articleRepository;
 
     @Autowired
+    private FellowshipRepository fellowshipRepository;
+
+    @Autowired
     private ModelAndViewUtils modelAndViewUtils;
 
     @Autowired
@@ -38,6 +42,15 @@ public class ArticlePageController {
         Page<Article> articlePage = articleRepository.findByAuthorOrderByStatusDescLastModifiedTimeDesc(pageable, user);
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/center/article");
+        return modelAndView;
+    }
+
+    @RequestMapping("/center/article/new")
+    public ModelAndView newEditorPage() {
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article-editor");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        modelAndView.addObject("article", new Article());
+        modelAndView.addObject("fellowship", fellowshipRepository.findByUser(user));
         return modelAndView;
     }
 

@@ -35,7 +35,7 @@ export default class Editor {
     }
 
     loadAsEditor() {
-        this.editor = new Quill(".article-editor .container", {
+        this.editor = new Quill("#article-editor .container", {
             placeholder: EDITOR_CONFIG.PLACEHOLDER,
             modules: {
                 toolbar: EDITOR_CONFIG.TOOLBAR

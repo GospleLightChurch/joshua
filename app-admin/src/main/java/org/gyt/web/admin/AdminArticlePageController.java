@@ -40,39 +40,6 @@ public class AdminArticlePageController {
     @Autowired
     private PaginationComponent paginationComponent;
 
-    @RequestMapping("/mine")
-    public ModelAndView getMine(Pageable pageable) {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthorOrderByLastModifiedTimeDesc(pageable, user);
-        modelAndView.addObject("type", "mine");
-        modelAndView.addObject("items", articlePage.getContent());
-        paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/mine");
-        return modelAndView;
-    }
-
-    @RequestMapping("/raw")
-    public ModelAndView getRaw(Pageable pageable) {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.RAW);
-        modelAndView.addObject("type", "raw");
-        modelAndView.addObject("items", articlePage.getContent());
-        paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/raw");
-        return modelAndView;
-    }
-
-    @RequestMapping("/reject")
-    public ModelAndView getReject(Pageable pageable) {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Page<Article> articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.REJECTED);
-        modelAndView.addObject("type", "reject");
-        modelAndView.addObject("items", articlePage.getContent());
-        paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/reject");
-        return modelAndView;
-    }
-
     @RequestMapping("/audit")
     public ModelAndView getAudit(Pageable pageable) {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
@@ -105,55 +72,6 @@ public class AdminArticlePageController {
         return modelAndView;
     }
 
-    @RequestMapping("/{id}")
-    public ModelAndView detailsPage(
-            @PathVariable Long id
-    ) {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-details");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        Article article = articleRepository.findOne(id);
-
-        if (null == article) {
-            modelAndView.addObject("error", "文章不存在");
-        } else {
-            modelAndView.addObject("title", String.format("光音堂后台 - 文章预览 - %s", article.getTitle()));
-            modelAndView.addObject("subtitle", article.getTitle());
-            modelAndView.addObject("item", article);
-            modelAndView.addObject("user", user);
-        }
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/{id}/edit")
-    public ModelAndView editArticlePage(
-            @PathVariable Long id
-    ) {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-editor");
-        modelAndView.addObject("title", "编辑文章");
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Article article = articleRepository.findOne(id);
-
-        if (article == null) {
-            modelAndView.addObject("error", "文章不存在");
-        } else if (!article.getAuthor().getUsername().equals(user.getUsername())) {
-            modelAndView.addObject("error", "只能编辑自己的文章");
-        } else {
-            modelAndView.addObject("title", String.format("光音堂后台 - 文章编辑 - %s", article.getTitle()));
-            modelAndView.addObject("subtitle", article.getTitle());
-            modelAndView.addObject("item", article);
-            modelAndView.addObject("edit", true);
-            Set<Fellowship> fellowshipSet = new HashSet<>();
-            fellowshipSet.addAll(fellowshipService.getUserOwnerFellowship(user.getUsername()));
-            fellowshipSet.addAll(fellowshipService.getUserAdminFellowship(user.getUsername()));
-            modelAndView.addObject("fellowship", fellowshipSet);
-        }
-
-        return modelAndView;
-    }
-
     @RequestMapping("/{id}/audit")
     public ModelAndView auditArticlePage(
             @PathVariable Long id
@@ -172,28 +90,6 @@ public class AdminArticlePageController {
             modelAndView.addObject("item", article);
         }
 
-        return modelAndView;
-    }
-
-    @RequestMapping("/new")
-    public ModelAndView newArticlePage() {
-        ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article-editor");
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (fellowshipService.getUserOwnerFellowship(user.getUsername()).isEmpty() && fellowshipService.getUserAdminFellowship(user.getUsername()).isEmpty()) {
-            modelAndView.setViewName("403");
-            modelAndView.addObject("message", "抱歉，您还没有任何团契的管理权限，不能发布文章到团契");
-            return modelAndView;
-        }
-
-        modelAndView.addObject("title", "光音堂后台 - 新建文章");
-        modelAndView.addObject("subtitle", "新建文章");
-        modelAndView.addObject("item", new Article());
-
-        Set<Fellowship> fellowshipSet = new HashSet<>();
-        fellowshipSet.addAll(fellowshipService.getUserOwnerFellowship(user.getUsername()));
-        fellowshipSet.addAll(fellowshipService.getUserAdminFellowship(user.getUsername()));
-        modelAndView.addObject("fellowship", fellowshipSet);
         return modelAndView;
     }
 }

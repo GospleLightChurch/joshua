@@ -7,6 +7,8 @@
 </head>
 
 <body>
-
+<div th:fragment="editor (article)" id="article-editor">
+    <div class="container" th:attr="data-id=${article.id}"></div>
+</div>
 </body>
 </html>

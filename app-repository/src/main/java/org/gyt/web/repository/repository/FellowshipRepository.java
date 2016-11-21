@@ -13,5 +13,5 @@ public interface FellowshipRepository extends JpaRepository<Fellowship, String> 
     List<Fellowship> findAllByOrderByName();
 
     @Query("select f from Fellowship f where f.owner = :username or :username member f.admins")
-    List<Fellowship> findByUser(@Param("username") User username);
+    List<Fellowship> findByUser(@Param("username") User user);
 }
