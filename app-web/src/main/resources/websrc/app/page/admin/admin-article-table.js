@@ -21,20 +21,20 @@ class AdminArticleTablePage extends AdminBasePage {
     enable(id) {
         new Dialog("激活文章", "激活文章后会重新在网站显示，确认要激活吗？", function () {
             var formData = new FormData();
-            formData.append("_csrf", $(".ui.admin.user.form input[name='_csrf']").val());
-            formData.append("id", id);
+            formData.append("_csrf", $(".joshua.csrf input[name='_csrf']").val());
+            formData.append("type", "enable");
 
             $.ajax({
-                url: "/api/article/enable",
+                url: "/api/article/" + id,
                 type: "post",
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (status) {
-                    if ("success" == status) {
+                success: function (response) {
+                    if ("OK" == response.status) {
                         window.location.reload();
                     } else {
-                        new Dialog("激活文章", "激活失败，原因：" + status, function () {
+                        new Dialog("激活文章", "激活失败，原因：" + response.message, function () {
                         }).error();
                     }
                 },
@@ -49,20 +49,20 @@ class AdminArticleTablePage extends AdminBasePage {
     disable(id) {
         new Dialog("禁用文章", "禁用文章后不会在网站显示，确认要禁用吗？", function () {
             var formData = new FormData();
-            formData.append("_csrf", $(".ui.admin.user.form input[name='_csrf']").val());
-            formData.append("id", id);
+            formData.append("_csrf", $(".joshua.csrf input[name='_csrf']").val());
+            formData.append("type", "disable");
 
             $.ajax({
-                url: "/api/article/disable",
+                url: "/api/article/" + id,
                 type: "post",
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (status) {
-                    if ("success" == status) {
+                success: function (response) {
+                    if ("OK" == response.status) {
                         window.location.reload();
                     } else {
-                        new Dialog("禁用文章", "禁用失败，原因：" + status, function () {
+                        new Dialog("禁用文章", "禁用失败，原因：" + response.message, function () {
                         }).error();
                     }
                 },

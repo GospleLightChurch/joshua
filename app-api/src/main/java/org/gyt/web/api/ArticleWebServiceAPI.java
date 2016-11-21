@@ -70,13 +70,20 @@ public class ArticleWebServiceAPI {
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.POST)
     public OperationResponse manage(@PathVariable Long id, @RequestParam String type) {
-        if (type.equalsIgnoreCase("audit")) {
-            return audit(id);
-        } else if (type.equalsIgnoreCase("delete")) {
+        if (type.equalsIgnoreCase("delete")) {
             return delete(id);
+        } else if (type.equalsIgnoreCase("audit")) {
+            return audit(id);
+        } else if (type.equalsIgnoreCase("publish")) {
+            return publish(id);
+        } else if (type.equalsIgnoreCase("reject")) {
+            return reject(id);
+        } else if (type.equalsIgnoreCase("enable")) {
+            return enable(id);
+        } else if (type.equalsIgnoreCase("disable")) {
+            return disable(id);
         }
-
-        return null;
+        return OperationResponseFactory.error("未知操作");
     }
 
     public OperationResponse delete(Long id) {
@@ -102,7 +109,7 @@ public class ArticleWebServiceAPI {
     }
 
 
-    public OperationResponse audit(@RequestParam Long id) {
+    public OperationResponse audit(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
@@ -122,8 +129,7 @@ public class ArticleWebServiceAPI {
         return OperationResponseFactory.error("文章不存在或者权限不够");
     }
 
-    @RequestMapping(value = "/publish", method = RequestMethod.POST)
-    public String publish(@RequestParam Long id) {
+    public OperationResponse publish(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
@@ -131,51 +137,55 @@ public class ArticleWebServiceAPI {
             article.setAuditor(user);
             article.setStatus(ArticleStatus.PUBLISHED);
             article.setLastModifiedTime(new Date());
-            return articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.PUBLISHED) ? "success" : "发布文章失败";
+            if (articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.PUBLISHED)) {
+                return OperationResponseFactory.ok("");
+            }
         }
 
-        return "发布文章失败";
+        return OperationResponseFactory.error("发布文章失败");
     }
 
-    @RequestMapping(value = "/reject", method = RequestMethod.POST)
-    public String reject(@RequestParam Long id, @RequestParam(required = false) String message) {
+    public OperationResponse reject(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
         if (article != null && article.getStatus().equals(ArticleStatus.AUDITING) && user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGE_ARTICLE"))) {
             article.setAuditor(user);
             article.setStatus(ArticleStatus.REJECTED);
-            article.setAuditComment(message);
-            return articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.REJECTED) ? "success" : "驳回文章失败";
+            if (articleService.createOrUpdate(article).getStatus().equals(ArticleStatus.REJECTED)) {
+                return OperationResponseFactory.ok("");
+            }
         }
 
-        return "驳回文章失败";
+        return OperationResponseFactory.error("驳回文章失败");
     }
 
-    @RequestMapping(value = "/disable", method = RequestMethod.POST)
-    public String disable(@RequestParam Long id) {
+    public OperationResponse disable(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
         if (article != null && !article.isDisable() && user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGE_ARTICLE"))) {
             article.setDisable(true);
-            return articleService.createOrUpdate(article).isDisable() ? "success" : "禁用文章失败";
+            if (articleService.createOrUpdate(article).isDisable()) {
+                return OperationResponseFactory.ok("");
+            }
         }
 
-        return "文章不存在或者已经禁用";
+        return OperationResponseFactory.error("文章不存在或者已经禁用");
     }
 
-    @RequestMapping(value = "/enable", method = RequestMethod.POST)
-    public String enable(@RequestParam Long id) {
+    public OperationResponse enable(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Article article = articleService.get(id);
 
         if (article != null && article.isDisable() && user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGE_ARTICLE"))) {
 
             article.setDisable(false);
-            return !articleService.createOrUpdate(article).isDisable() ? "success" : "激活文章失败";
+            if (!articleService.createOrUpdate(article).isDisable()) {
+                return OperationResponseFactory.ok("");
+            }
         }
 
-        return "文章不存在或者已经激活";
+        return OperationResponseFactory.error("文章不存在或者已经激活");
     }
 }

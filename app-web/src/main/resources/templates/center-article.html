@@ -13,7 +13,7 @@
         <div class="twelve wide column">
             <div th:replace="fragment/layout :: header (title='文章中心')"></div>
             <div th:replace="article/layout :: toolbar"></div>
-            <div th:replace="article/table :: table(${items})"></div>
+            <div th:replace="article/table :: user-table(${items})"></div>
         </div>
         <div class="four wide column">
             <div th:replace="fragment/navigation :: secondary"></div>

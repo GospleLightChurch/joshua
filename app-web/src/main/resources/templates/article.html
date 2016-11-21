@@ -17,7 +17,8 @@
             <div th:replace="fragment/article :: article-status (${item})">文章状态栏</div>
         </div>
         <div class="sixteen wide column">
-            <div th:replace="fragment/article :: article-reader(${item})">文章阅读器</div>
+            <div th:replace="article/editor :: reader(${item})"></div>
+            <div th:replace="article/layout :: loader"></div>
         </div>
     </div>
 </div>

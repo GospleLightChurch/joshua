@@ -13,22 +13,8 @@
 
 <div class="ui admin layout root">
     <div th:replace="adminFragment/admin-layout :: header(${subtitle}, '文章管理')">布局标题</div>
-    <div th:replace="adminFragment/admin-article :: toolbar"></div>
-
-    <div th:if="${type == 'mine'}">
-        <div th:replace="adminFragment/admin-article :: table-mine(${items})"></div>
-    </div>
-    <div th:if="${(type == 'raw') or (type == 'reject')}">
-        <div th:replace="adminFragment/admin-article :: table-normal(${items})"></div>
-    </div>
-    <div th:if="${type == 'audit'}">
-        <div th:replace="adminFragment/admin-article :: table-audit(${items})"></div>
-    </div>
-    <div th:if="${type == 'publish'}">
-        <div th:replace="adminFragment/admin-article :: table-publish(${items})"></div>
-    </div>
-    <form class="ui admin user form" th:action="@{/}" th:object="${users}" method="post" style="display: none">
-    </form>
+    <div th:replace="article/table :: admin-table(${items})"></div>
+    <div th:replace="fragment/layout :: csrf"></div>
 </div>
 
 <script th:src="@{/assets/js/adminArticleTable.js}"></script>

@@ -5,7 +5,6 @@ import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.core.utils.PaginationComponent;
 import org.gyt.web.model.Article;
 import org.gyt.web.model.ArticleStatus;
-import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.User;
 import org.gyt.web.repository.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 后台页面路由器
@@ -45,12 +41,7 @@ public class AdminArticlePageController {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Page<Article> articlePage;
-        if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-            articlePage = articleRepository.findByStatusOrderByLastModifiedTimeDesc(pageable, ArticleStatus.AUDITING);
-        } else {
-            articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.AUDITING);
-        }
-        modelAndView.addObject("type", "audit");
+        articlePage = articleRepository.findByStatusOrderByLastModifiedTimeDesc(pageable, ArticleStatus.AUDITING);
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/audit");
         return modelAndView;
@@ -61,12 +52,7 @@ public class AdminArticlePageController {
         ModelAndView modelAndView = modelAndViewUtils.newAdminModelAndView("adminPages/admin-article");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Page<Article> articlePage;
-        if (user.getRoles().stream().anyMatch(role -> role.getAuthorities().stream().anyMatch(s -> s.equals("ROLE_MANAGE_ARTICLE")))) {
-            articlePage = articleRepository.findByStatusOrderByLastModifiedTimeDesc(pageable, ArticleStatus.PUBLISHED);
-        } else {
-            articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.PUBLISHED);
-        }
-        modelAndView.addObject("type", "publish");
+        articlePage = articleRepository.findByAuthorAndStatusOrderByLastModifiedTimeDesc(pageable, user, ArticleStatus.PUBLISHED);
         modelAndView.addObject("items", articlePage.getContent());
         paginationComponent.addPagination(modelAndView, articlePage, "/admin/article/publish");
         return modelAndView;
@@ -87,7 +73,7 @@ public class AdminArticlePageController {
         } else {
             modelAndView.addObject("title", String.format("光音堂后台 - 文章审核 - %s", article.getTitle()));
             modelAndView.addObject("subtitle", article.getTitle());
-            modelAndView.addObject("item", article);
+            modelAndView.addObject("article", article);
         }
 
         return modelAndView;

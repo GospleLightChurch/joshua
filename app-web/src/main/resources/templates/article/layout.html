@@ -42,11 +42,18 @@
     <label for="file" class="ui icon button fluid"> <i class="file icon"></i> 请选择文章封面</label>
     <input type="file" id="file" name="file" style="display:none" class="joshua cover input"/>
     <div class="ui dividing header" style="margin-top: 1rem"></div>
-    <div th:replace="adminFragment/admin-article :: getArticleCover(${article})"></div>
+    <div th:replace="article/layout :: cover(${article})"></div>
 </div>
 
 <div th:fragment="loader" class="ui inverted dimmer">
     <div class="ui text loader">文章正在飞速处理中</div>
+</div>
+
+<div th:fragment="cover (article)">
+    <img th:if="${article.cover == null}" th:src="@{/assets/images/placeholder.png}"
+         id="cover-picture" class="ui rounded fluid image"/>
+    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"
+         id="cover-picture" class="ui rounded fluid image"/>
 </div>
 </body>
 </html>

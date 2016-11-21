@@ -45,17 +45,7 @@ export default class Editor {
     }
 
     loadAsReader() {
-        this.editor = new Quill(".article-reader .container", {
-            modules: {
-                toolbar: false
-            },
-            theme: EDITOR_CONFIG.THEME,
-            readOnly: true
-        });
-    }
-
-    loadAsAuditor() {
-        this.editor = new Quill(".article-audit .container", {
+        this.editor = new Quill("#article-reader .container", {
             modules: {
                 toolbar: false
             },
@@ -93,7 +83,7 @@ export default class Editor {
     }
 
     initContent() {
-        var reader = $(".article-reader");
+        var reader = $("#article-reader");
 
         reader.find("img").each(function () {
             var imgSrc = $(this).attr("src");
@@ -105,6 +95,6 @@ export default class Editor {
         });
 
         reader.removeAttr("style");
-        $(".article-reader + .ui.dimmer").removeClass("active");
+        $(".ui.dimmer").removeClass("active");
     }
 }

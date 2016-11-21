@@ -28,6 +28,18 @@
 </div>
 
 <!--
+    文章激活禁用按钮
+-->
+<span th:fragment="convertToEnableDisableButton (article)">
+    <button th:if="${article.isDisable()}" class="ui admin article enable green tiny button"
+            th:attr="data-id=${article.id}">激活
+    </button>
+    <button th:if="${not article.isDisable()}" class="ui admin article disable red tiny button"
+            th:attr="data-id=${article.id}">禁用
+    </button>
+</span>
+
+<!--
     文章表格分页组件
 -->
 <tfoot th:fragment="pagination (columnSpan)">
@@ -41,7 +53,7 @@
 <!--
     我的文章表格组件
 -->
-<table th:fragment="table (articles)" class="ui celled selectable compact table">
+<table th:fragment="user-table (articles)" class="ui celled selectable compact table">
     <thead>
     <tr>
         <th class="six wide">文章标题</th>
@@ -72,6 +84,41 @@
     </tr>
     </tbody>
     <div th:replace="article/table :: pagination(4)"></div>
+</table>
+
+<table th:fragment="admin-table (articles)" class="ui celled selectable compact table">
+    <thead>
+    <tr>
+        <th class="seven wide">文章标题</th>
+        <th class="two wide">作者</th>
+        <th class="two wide">审核人</th>
+        <th class="two wide">所属团契</th>
+        <th class="one wide">状态</th>
+        <th class="two wide">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(articles)}">
+        <td colspan="6">当前还没有内容</td>
+    </tr>
+    <tr th:each="article : ${articles}">
+        <td th:utext="${article.title}"></td>
+        <td th:utext="${article.author.getDisplayName()}"></td>
+        <td th:utext="${article.auditor == null ? '-' : article.author.getDisplayName()}"></td>
+        <td th:utext="${article.fellowship.displayName}"></td>
+        <td>
+            <div th:replace="article/table :: covertToStatusLabel (${article})"></div>
+        </td>
+        <td>
+            <a th:if="${article.status.name() == 'AUDITING'}" class="ui tiny button"
+               th:href="@{'/admin/article/' + ${article.id} + '/audit'}">审核</a>
+            <div th:if="${article.status.name() == 'PUBLISHED'}">
+                <div th:replace="article/table :: convertToEnableDisableButton (${article})"></div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    <div th:replace="article/table :: pagination(6)"></div>
 </table>
 </body>
 </html>

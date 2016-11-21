@@ -12,8 +12,6 @@ module.exports = {
         articleCenter: "./app/page/article-center.js",
         adminHome: "./app/page/admin/admin-home.js",
         adminArticleTable: "./app/page/admin/admin-article-table.js",
-        adminArticleReader: "./app/page/admin/admin-article-reader.js",
-        adminArticleEditor: "./app/page/admin/admin-article-editor.js",
         adminArticleAuditor: "./app/page/admin/admin-article-auditor.js",
         adminFellowshipTable: "./app/page/admin/admin-fellowship-table.js",
         adminFellowshipDetails: "./app/page/admin/admin-fellowship-details.js",
