@@ -8,6 +8,7 @@ module.exports = {
         logon: "./app/page/logon.js",
         forget: "./app/page/forget.js",
         userinfo: "./app/page/user-info.js",
+        articleCenter: "./app/page/article-center.js",
         adminHome: "./app/page/admin/admin-home.js",
         adminArticleTable: "./app/page/admin/admin-article-table.js",
         adminArticleReader: "./app/page/admin/admin-article-reader.js",

@@ -1,0 +1,21 @@
+<!--
+    文章管理基本组件
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <title>后台布局</title>
+    <link rel="stylesheet" href="../../public/assets/css/joshua.min.css"/>
+</head>
+<body>
+
+<!--
+    文章列表工具栏
+-->
+<div th:fragment="toolbar" class="ui segment">
+    <a class="ui icon button" th:href="@{/admin/article/new}"> <i class="file icon"></i> 新建文章</a>
+</div>
+</body>
+</html>
