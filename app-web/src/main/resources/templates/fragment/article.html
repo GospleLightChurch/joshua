@@ -66,7 +66,7 @@
 <!-- 前端文章列表 - 文章封面组件 -->
 <a th:fragment="cover (article)" class="ui tiny image" th:href="@{'/article/' + ${article.id} + '.html'}" target="_blank">
     <img th:if="${article.cover == null}" th:src="@{/assets/images/article-cover.jpg}"/>
-    <img th:if="${article.cover != null}" th:src="@{'/cover/' + ${article.id}}"/>
+    <img th:if="${article.cover != null}" th:src="@{'/api/article/cover/' + ${article.id}}"/>
 </a>
 
 <!-- 前端文章列表 - 文章描述信息 -->
