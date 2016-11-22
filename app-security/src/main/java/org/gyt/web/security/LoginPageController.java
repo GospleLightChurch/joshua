@@ -25,19 +25,15 @@ public class LoginPageController {
     private ModelAndViewUtils modelAndViewUtils;
 
     @RequestMapping("/login")
-    public ModelAndView getPage(
-            @RequestParam(required = false) String error,
-            @RequestParam(required = false) String logout
-    ) {
+    public ModelAndView getPage(User user, @RequestParam(required = false) String error, @RequestParam(required = false) String logout) {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("login");
-        modelAndView.addObject("user", new User());
 
         if (null != error) {
-            modelAndView.addObject("login", "failed");
+            modelAndView.addObject("status", "loginError");
         }
 
         if (null != logout) {
-            modelAndView.addObject("logout", "success");
+            modelAndView.addObject("status", "logout");
         }
 
         return modelAndView;
@@ -56,9 +52,9 @@ public class LoginPageController {
 
         if (userService.create(user)) {
             roleService.addToUser(user.getUsername(), "USER");
-            modelAndView.addObject("logon", "success");
+            modelAndView.addObject("status", "logonSuccess");
         } else {
-            modelAndView.addObject("logon", "failed");
+            modelAndView.addObject("status", "logonError");
         }
 
         return modelAndView;

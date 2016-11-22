@@ -12,25 +12,22 @@
 
 <div class="ui joshua main container">
     <div class="ui stackable grid">
-        <div class="eleven wide column">
-            <div th:replace="fragment/layout :: header ('光之教堂，天使之音')"></div>
-            <div th:replace="fragment/layout :: verse ('神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。 ', '约翰福音 3:16')"></div>
-
-            <div class="ui fluid rounded image">
-                <img th:src="@{/assets/images/staticPage/loginPage.jpg}" alt="基督教光音堂"/>
-            </div>
+        <div class="eleven wide computer only tablet only column">
+            <div th:replace="fragment/layout :: header (#{gyt.header.login})"></div>
+            <div th:replace="fragment/layout :: verse (#{verse.login.content}, #{verse.login.place})"></div>
+            <div th:replace="fragment/layout :: picture ('staticPage/loginPage.jpg')"></div>
         </div>
         <div class="five wide column">
-            <div class="ui error message" th:if="${login == 'failed'}">
-                登录失败，用户不存在或者密码错误
-            </div>
-            <div class="ui success message" th:if="${logout == 'success'}">
+            <div th:if="${status == 'logout'}" class="ui success message">
                 注销成功，请重新登录
             </div>
-            <div class="ui success message" th:if="${logon == 'success'}">
+            <div th:if="${status == 'logonSuccess'}" class="ui success message">
                 注册成功，请登录
             </div>
-            <div class="ui error message" th:if="${logon == 'failed'}">
+            <div th:if="${status == 'loginError'}" class="ui error message">
+                登录失败，用户不存在或者密码错误
+            </div>
+            <div th:if="${status == 'logonError'}" class="ui error message">
                 注册失败，用户名或邮箱已经存在
             </div>
             <div class="ui raised segment">
