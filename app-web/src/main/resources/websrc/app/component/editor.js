@@ -56,8 +56,9 @@ export default class Editor {
 
     loadContent(id, onSuccess) {
         let editor = this.editor;
+        let dimmer = $(".ui.dimmer");
+        dimmer.dimmer("show");
         if (id && id > 0) {
-            $(".ui.dimmer").dimmer("show");
             $.ajax({
                 url: "/article/content/" + id,
                 type: "get",
@@ -72,13 +73,15 @@ export default class Editor {
                             onSuccess.apply(editor);
                         }
 
-                        $(".ui.dimmer").dimmer("hide");
+                        dimmer.dimmer("hide");
                     }
                 },
                 error: () => {
-                    $(".ui.dimmer").dimmer("hide");
+                    dimmer.dimmer("hide");
                 }
             });
+        } else {
+            dimmer.dimmer("hide");
         }
     }
 
