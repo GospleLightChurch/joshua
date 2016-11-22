@@ -7,12 +7,12 @@
 </head>
 
 <body>
-<div th:fragment="editor (article)" id="article-editor" th:attr="data-id=${article.id != null ? article.id : -1}">
+<div th:fragment="editor (article)" id="article-editor" th:attr="data-id=${article.id ?: -1}">
     <div class="container"></div>
 </div>
 
 <div th:fragment="reader (article)" id="article-reader" style="height: 300px"
-     th:attr="data-id=${article.id != null ? article.id : -1}">
+     th:attr="data-id=${article.id ?: -1}">
     <div class="container"></div>
 </div>
 </body>
