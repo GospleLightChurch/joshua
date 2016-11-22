@@ -11,8 +11,24 @@
 <div th:replace="fragment/navigation :: primary">导航栏</div>
 
 <div class="ui joshua main container">
-    <div th:replace="fragment/layout :: header (title='找回密码')"></div>
-    <div th:replace="fragment/forget :: primay"></div>
+    <div th:replace="fragment/layout :: header (#{gyt.header.forget})"></div>
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui labeled input">
+                <label class="ui label">登录账号</label>
+                <input class="user forget username" type="text" placeholder="您的登录名"/>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <div class="ui labeled input">
+                <label class="ui label">电子邮箱</label>
+                <input class="user forget email" type="text" placeholder="确定您的账户邮箱"/>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <button class="ui primary user forget button">重置密码</button>
+        </div>
+    </div>
 </div>
 
 <!--/* 引用页脚组件 */-->
