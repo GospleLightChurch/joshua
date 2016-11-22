@@ -1,4 +1,4 @@
-package org.gyt.web.api;
+package org.gyt.web.api.fellowship;
 
 import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.service.RoleService;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/fellowship")
-public class FellowshipWebServiceAPI {
+public class FellowshipWebService {
 
     @Autowired
     private FellowshipService fellowshipService;

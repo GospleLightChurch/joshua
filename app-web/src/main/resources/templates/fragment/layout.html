@@ -18,7 +18,7 @@ HTML 布局基本组件
 
 <!-- 大图组件 -->
 <div th:fragment="picture (src)" class="ui rounded fluid image">
-    <img src="#" th:src="@{'/assets/images/' + ${src}}" alt="成都基督教光音堂"/>
+    <img src="#" th:src="@{|/assets/images/${src}|}" th:alt="#{gyt.title}"/>
 </div>
 
 <div th:fragment="divider (title)" class="ui horizontal divider" th:utext="${title}"></div>

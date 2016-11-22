@@ -1,4 +1,4 @@
-package org.gyt.web.api;
+package org.gyt.web.api.user;
 
 import org.gyt.web.core.service.UserService;
 import org.gyt.web.core.utils.ModelAndViewUtils;

@@ -8,18 +8,18 @@ HTML 头部基本组件，用于每个页面的头部引用
 <head th:fragment="head">
 
     <!--/* 定义页面标题，如果页面为定义标题，则使用默认标题 */-->
-    <title th:text="${#strings.isEmpty(title)} ? '成都基督教光音堂' : ${title}"></title>
+    <title th:text="${title} ?: #{gyt.title}"></title>
 
     <!--/* 定义默认字符编码 */-->
     <meta charset="UTF-8"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description"
-          th:content="${#strings.isEmpty(description)} ? '基督教光音堂位于成都市高新区天府一街886号（天府一街剑南大道口），是由芬兰设计师设计，典型的北欧简约建筑风格。' : ${description}"/>
-    <meta name="author" content="成都基督教光音堂"/>
-
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <meta name="description" th:content="${description} ?: #{gyt.description}"/>
+
+    <meta name="author" th:content="#{gyt.author}"/>
+    <meta name="keywords" th:content="#{gyt.keywords}"/>
 
     <!--/* 页面图标 */-->
     <link th:href="@{/assets/images/favicon.gif}" rel="icon"/>
@@ -30,14 +30,13 @@ HTML 头部基本组件，用于每个页面的头部引用
     <!--/* 百度统计 */-->
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?71971448905937c0321fcdd9d081714a";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-
 </head>
 
 <script th:fragment="script" th:src="@{/assets/js/joshua.js}" charset="UTF-8"></script>
