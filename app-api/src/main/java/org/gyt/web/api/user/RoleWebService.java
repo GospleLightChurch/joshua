@@ -1,4 +1,4 @@
-package org.gyt.web.api;
+package org.gyt.web.api.user;
 
 import org.gyt.web.core.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/role")
-public class RoleWebServiceAPI {
+public class RoleWebService {
 
     @Autowired
     private RoleService roleService;

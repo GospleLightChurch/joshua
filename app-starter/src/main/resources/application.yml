@@ -23,6 +23,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+  messages:
+    basename: gyt, verse
   resources:
     cache-period: 31536000
     chain:

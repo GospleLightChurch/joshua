@@ -1,4 +1,4 @@
-package org.gyt.web.api;
+package org.gyt.web.api.article;
 
 import org.gyt.web.core.service.ArticleService;
 import org.gyt.web.model.Article;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/article/content")
-public class ArticleContentWebServiceAPI {
+public class ContentWebService {
 
     @Autowired
     private ArticleService articleService;

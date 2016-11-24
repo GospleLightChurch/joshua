@@ -1,4 +1,4 @@
-package org.gyt.web.api;
+package org.gyt.web.api.article;
 
 import org.gyt.web.core.service.ArticleService;
 import org.gyt.web.core.utils.OperationResponse;
@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/api")
-public class ArticleWebServiceAPI {
+public class ArticleWebService {
 
     @Autowired
     private ArticleService articleService;
