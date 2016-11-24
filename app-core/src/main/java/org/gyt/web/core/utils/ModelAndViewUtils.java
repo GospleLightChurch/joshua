@@ -42,7 +42,7 @@ public class ModelAndViewUtils {
     }
 
     public void convertTo404(ModelAndView modelAndView, String message) {
-        modelAndView.setViewName("404");
+        modelAndView.setViewName("error/404");
         modelAndView.addObject("message", message);
         modelAndView.addObject("articles", articleService.getLatestArticles());
     }

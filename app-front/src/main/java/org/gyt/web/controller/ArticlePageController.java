@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RestController
 public class ArticlePageController {
-
+ 
     @Autowired
     private ArticleRepository articleRepository;
 
