@@ -29,15 +29,15 @@ public class BasicErrorController implements ErrorController {
     @RequestMapping
     public ModelAndView handleError(HttpServletRequest request) {
         Map<String, Object> errors = errorAttributes.getErrorAttributes(new ServletRequestAttributes(request), true);
-        ModelAndView modelAndView = new ModelAndView("500");
+        ModelAndView modelAndView = new ModelAndView("error/5xx");
 
         if (errors.get("status").equals(404)) {
-            modelAndView.setViewName("404");
+            modelAndView.setViewName("error/404");
             modelAndView.addObject("timestamp", errors.get("timestamp"));
             modelAndView.addObject("path", errors.get("path"));
             modelAndView.addObject("articles", articleService.getChurchArticles());
         } else if (errors.get("status").equals(403)) {
-            modelAndView.setViewName("403");
+            modelAndView.setViewName("error/403");
             modelAndView.addObject("timestamp", errors.get("timestamp"));
             modelAndView.addObject("message", errors.get("message"));
             modelAndView.addObject("path", errors.get("path"));

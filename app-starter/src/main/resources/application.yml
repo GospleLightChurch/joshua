@@ -1,6 +1,3 @@
-#
-# spring configuration
-#
 server:
   port: 1013
   compression:
@@ -10,15 +7,14 @@ server:
 spring:
   application:
     name: Joshua
-
   datasource:
     url: jdbc:mysql://localhost:3306/gyt
     username: gyt
     password: gyt123
     driverClassName: com.mysql.jdbc.Driver
-    test-on-borrow: true
-    validation-query: select 1
-
+    tomcat:
+      test-on-borrow: true
+      validation-query: select 1
   jpa:
     database: MYSQL
     show-sql: false
@@ -27,37 +23,20 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-
   messages:
     basename: gyt, verse
-
   resources:
     cache-period: 31536000
     chain:
       strategy:
         content:
           enabled: true
-
   mail:
     host: smtp.sina.com
     port: 25
     username: cdgyt2013@sina.com
     password: gyt20131013
-
-multipart:
-  max-file-size: 20MB
-  max-request-size: 20MB
-
-#
-# loggin configuration
-#
-logging.level.org.springframework: ERROR
-logging.level.org.springframework.web: ERROR
-logging.level.org.hibernate: ERROR
-logging.level.org.gyt.web: DEBUG
-logging:
-  file: /var/opt/log/joshua/joshua.log
-
-joshua:
-  dir:
-    gallery: /var/opt/joshua/gallery/
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
