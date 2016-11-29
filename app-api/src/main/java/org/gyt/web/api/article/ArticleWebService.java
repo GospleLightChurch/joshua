@@ -68,7 +68,7 @@ public class ArticleWebService {
         return article != null ? OperationResponseFactory.ok(article.getId().toString()) : OperationResponseFactory.error("文章保存失败");
     }
 
-    @RequestMapping(value = "/article/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/article/{id}")
     public OperationResponse manage(@PathVariable Long id, @RequestParam String type) {
         if (type.equalsIgnoreCase("delete")) {
             return delete(id);
