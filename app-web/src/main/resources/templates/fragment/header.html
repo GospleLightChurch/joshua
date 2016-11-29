@@ -37,6 +37,22 @@ HTML 头部基本组件，用于每个页面的头部引用
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
+
+    <!--/* 百度自动推送 */-->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
 </head>
 
 <script th:fragment="script" th:src="@{/assets/js/joshua.js}" charset="UTF-8"></script>
