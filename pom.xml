@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.2.RELEASE</version>
+        <version>1.3.6.RELEASE</version>
     </parent>
 
     <!--
@@ -32,10 +32,6 @@
     -->
     <properties>
         <java.version>1.8</java.version>
-
-        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-        <thymeleaf-extras-springsecurity4.version>3.0.1.RELEASE</thymeleaf-extras-springsecurity4.version>
-        <thymeleaf-layout-dialect.version>2.0.4</thymeleaf-layout-dialect.version>
 
         <mysql-connector-java.version>5.1.6</mysql-connector-java.version>
         <json-path.version>2.0.0</json-path.version>
