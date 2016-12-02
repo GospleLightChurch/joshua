@@ -12,9 +12,9 @@ spring:
     username: gyt
     password: gyt123
     driverClassName: com.mysql.jdbc.Driver
-    tomcat:
-      test-on-borrow: true
-      validation-query: select 1
+    test-on-borrow: true
+    validation-query: select 1
+
   jpa:
     database: MYSQL
     show-sql: false
@@ -40,5 +40,3 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
-  thymeleaf:
-    mode: HTML

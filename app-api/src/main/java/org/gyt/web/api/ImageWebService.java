@@ -20,7 +20,7 @@ public class ImageWebService {
     @Autowired
     private ImageRepository imageRepository;
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public byte[] getImage(@PathVariable String id) {
         Image image = imageRepository.findOne(id);
 
@@ -31,7 +31,7 @@ public class ImageWebService {
         return image.getContent();
     }
 
-    @PostMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public OperationResponse uploadImage(Principal principal, @RequestParam MultipartFile file) {
         User user = (User) principal;
         Image image = new Image();
