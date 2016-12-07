@@ -6,6 +6,12 @@
     <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
 </head>
 <body>
+
+<div style="display: none">
+    <img th:if="${item.cover == null}" th:src="@{/assets/images/article-cover.jpg}"/>
+    <img th:if="${item.cover != null}" th:src="@{'/cover/' + ${item.id}}"/>
+</div>
+
 <div th:replace="fragment/navigation :: primary">导航栏</div>
 
 <div class="ui joshua main container">
