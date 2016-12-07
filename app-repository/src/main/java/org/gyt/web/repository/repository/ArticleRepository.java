@@ -12,15 +12,11 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Page<Article> findByAuthorOrderByLastModifiedTimeDesc(Pageable pageable, User author);
-
     Page<Article> findByStatusOrderByLastModifiedTimeDesc(Pageable pageable, ArticleStatus status);
 
     Page<Article> findByAuthorAndStatusOrderByLastModifiedTimeDesc(Pageable pageable, User author, ArticleStatus status);
 
     Page<Article> findByAuthorOrderByStatusDescLastModifiedTimeDesc(Pageable pageable, User author);
-
-    List<Article> findTop5ByFellowshipOrderByLastModifiedTimeDesc(Fellowship fellowship);
 
     List<Article> findTop5ByOrderByPageViewDesc();
 }

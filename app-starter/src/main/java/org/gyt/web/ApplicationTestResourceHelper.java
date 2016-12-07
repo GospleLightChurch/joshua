@@ -31,7 +31,7 @@ class ApplicationTestResourceHelper {
     };
 
     private static final int TEST_USER_COUNT = 100;
-    private static final int TEST_ARTICLE_COUNT = 100;
+    private static final int TEST_ARTICLE_COUNT = 1000;
     private static final int TEST_MESSAGE_COUNT = 100;
 
     static void createTestUsers(ApplicationContext applicationContext) {
