@@ -20,11 +20,11 @@
             <div th:replace="article/editor :: reader(${item})"></div>
             <div th:replace="article/layout :: loader"></div>
         </div>
-        <div class="sixteen wide column">
-            <div th:replace="fragment/article :: group-table('推荐消息', ${latestItems})"></div>
+        <div class="eight wide column">
+            <div th:replace="fragment/article :: group-table('本团契近期消息', ${latestItems})"></div>
         </div>
-        <div class="sixteen wide column">
-            <div th:replace="fragment/article :: group-table('热点文章', ${hotItems})"></div>
+        <div class="eight wide column">
+            <div th:replace="fragment/article :: group-table('教堂热点文章', ${hotItems})"></div>
         </div>
     </div>
 </div>
