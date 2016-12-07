@@ -115,10 +115,11 @@ public class ArticlePageController {
         modelAndView.addObject("item", article);
         modelAndView.addObject("user", article.getAuthor());
 
-        modelAndView.addObject("latestItems", article.getFellowship().getArticles().stream().limit(5)
-                .filter(sourceArticle -> {
-                    return !article.getId().equals(sourceArticle.getId());
-                }).collect(Collectors.toList()));
+        modelAndView.addObject("latestItems", article.getFellowship().getArticles().stream()
+                .filter(sourceArticle -> sourceArticle.getStatus().equals(ArticleStatus.PUBLISHED) && !sourceArticle.getId().equals(article.getId()))
+                .sorted((o1, o2) -> o2.getLastModifiedTime().compareTo(o1.getLastModifiedTime()))
+                .limit(5)
+                .collect(Collectors.toList()));
         modelAndView.addObject("hotItems", articleRepository.findTop5ByOrderByPageViewDesc());
         increasePageView(article);
     }
