@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.stream.Collectors;
+
 /**
  * 前端文章页面路由器
  * Created by Administrator on 2016/9/16.
@@ -113,7 +115,10 @@ public class ArticlePageController {
         modelAndView.addObject("item", article);
         modelAndView.addObject("user", article.getAuthor());
 
-        modelAndView.addObject("latestItems", articleRepository.findTop5ByFellowshipOrderByLastModifiedTimeDesc(article.getFellowship()));
+        modelAndView.addObject("latestItems", article.getFellowship().getArticles().stream().limit(5)
+                .filter(sourceArticle -> {
+                    return !article.getId().equals(sourceArticle.getId());
+                }).collect(Collectors.toList()));
         modelAndView.addObject("hotItems", articleRepository.findTop5ByOrderByPageViewDesc());
         increasePageView(article);
     }
