@@ -113,6 +113,12 @@ public class ArticlePageController {
         modelAndView.addObject("item", article);
         modelAndView.addObject("user", article.getAuthor());
 
+        modelAndView.addObject("latestItems", articleRepository.findTop5ByFellowshipOrderByLastModifiedTimeDesc(article.getFellowship()));
+        modelAndView.addObject("hotItems", articleRepository.findTop5ByOrderByPageViewDesc());
+        increasePageView(article);
+    }
+
+    private void increasePageView(Article article) {
         if (article.getPageView() == null) {
             article.setPageView(1L);
         } else {
