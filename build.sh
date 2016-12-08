@@ -3,7 +3,6 @@
 set HOME = `pwd`
 
 cd app-web/src/main/websrc
-gulp css
-webpack
+webpack --progress --colors
 
 cd $HOME

@@ -1,24 +1,7 @@
 module.exports = {
     entry: {
-        animation: "./app/page/animation.js",
-        normal: "./app/page/normal.js",
-        home: "./app/page/home.js",
-        article: "./app/page/article.js",
-        contact: "./app/page/contact.js",
-        logon: "./app/page/logon.js",
-        forget: "./app/page/forget.js",
-        userinfo: "./app/page/user-info.js",
-        editor: "./app/page/editor.js",
-        articleCenter: "./app/page/article-center.js",
-        adminHome: "./app/page/admin/admin-home.js",
-        adminArticleTable: "./app/page/admin/admin-article-table.js",
-        adminArticleAuditor: "./app/page/admin/admin-article-auditor.js",
-        adminFellowshipTable: "./app/page/admin/admin-fellowship-table.js",
-        adminFellowshipDetails: "./app/page/admin/admin-fellowship-details.js",
-        adminMessageTable: "./app/page/admin/admin-message-table.js",
-        adminStaticHome: "./app/page/admin/admin-static-home.js",
-        adminUserTable: "./app/page/admin/admin-user-table.js",
-        adminUserDetails: "./app/page/admin/admin-user-details.js"
+        joshua: "./app/joshua-front-page.js",
+        joshuaAdmin: "./app/joshua-admin-page.js"
     },
     output: {
         path: "../resources/public/assets/js",
@@ -35,8 +18,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                loader: 'style!css'
+                test: /\.scss/,
+                loader: 'style!css!sass'
             }
         ]
     }

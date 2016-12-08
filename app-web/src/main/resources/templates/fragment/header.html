@@ -24,9 +24,6 @@ HTML 头部基本组件，用于每个页面的头部引用
     <!--/* 页面图标 */-->
     <link th:href="@{/assets/images/favicon.gif}" rel="icon"/>
 
-    <!--/* 统一CSS样式引用 */-->
-    <link th:href="@{/assets/css/joshua.min.css}" rel="stylesheet"/>
-
     <!--/* 百度统计 */-->
     <script>
         var _hmt = _hmt || [];
@@ -55,5 +52,6 @@ HTML 头部基本组件，用于每个页面的头部引用
     </script>
 </head>
 
-<script th:fragment="script" th:src="@{/assets/js/joshua.js}" charset="UTF-8"></script>
+<script th:fragment="frontScript" th:src="@{/assets/js/joshua.js}" charset="UTF-8"></script>
+<script th:fragment="adminScript" th:src="@{/assets/js/joshuaAdmin.js}" charset="UTF-8"></script>
 </html>

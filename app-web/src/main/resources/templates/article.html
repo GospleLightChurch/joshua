@@ -38,6 +38,6 @@
 <!--/* 引用页脚组件 */-->
 <div th:replace="fragment/footer :: footer">页脚</div>
 
-<script th:src="@{/assets/js/article.js}"></script>
+<script th:replace="fragment/head :: frontScript"></script>
 </body>
 </html>
