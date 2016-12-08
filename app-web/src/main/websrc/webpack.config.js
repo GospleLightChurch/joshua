@@ -25,13 +25,14 @@ module.exports = {
                 test: /\.(png|jpg)$/,
                 loader: 'url',
                 query: {
-                    limit: 8192
+                    limit: 8192,
+                    publicPath: "/assets/js/",
+                    name: "[name].[ext]"
                 }
             }, {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'file',
                 query: {
-                    outputPath: "../resources/public/assets/fonts",
                     publicPath: "/assets/js/",
                     name: "[name].[ext]"
                 }
