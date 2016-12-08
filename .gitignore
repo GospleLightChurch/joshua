@@ -1,7 +1,8 @@
+.*
 *.iml
-.idea/
+!.gitignore
 target/
 node_modules/
-tasks/
 dist/
-js/
+**/assets/css/
+**/assets/js/
