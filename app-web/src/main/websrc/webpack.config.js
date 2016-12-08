@@ -21,7 +21,7 @@ module.exports = {
         adminUserDetails: "./app/page/admin/admin-user-details.js"
     },
     output: {
-        path: "../public/assets/js",
+        path: "../resources/public/assets/js",
         filename: "[name].js"
     },
     module: {

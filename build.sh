@@ -2,7 +2,7 @@
 
 set HOME = `pwd`
 
-cd app-web/src/main/resources/websrc
+cd app-web/src/main/websrc
 gulp css
 webpack
 

@@ -9,5 +9,5 @@ gulp.task('css', function () {
             console.log(details.name + ': ' + details.stats.originalSize);
             console.log(details.name + ': ' + details.stats.minifiedSize);
         }))
-        .pipe(gulp.dest('../public/assets/css'));
+        .pipe(gulp.dest('../resources/public/assets/css'));
 });
