@@ -3,6 +3,7 @@
  * Created by y27chen on 2016/10/29.
  */
 import "../css/joshua-root.scss";
+import "../semantic/dist/semantic.css";
 import $ from "jquery";
 import jQuery from "jquery";
 window.$ = $;

@@ -6,3 +6,4 @@ node_modules/
 dist/
 **/assets/css/
 **/assets/js/
+**/assets/fonts/
