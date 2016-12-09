@@ -1,9 +1,7 @@
-/**
- * 卡片动画页面
- * Created by y27chen on 2016/10/29.
- */
-import AnimationPage from "../joshua-animation-page";
+import BasePage from "../app-base";
+import AOS from "aos";
 
 $(document).ready(() => {
-    new AnimationPage();
+    new BasePage();
+    AOS.init();
 });

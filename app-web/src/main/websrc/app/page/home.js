@@ -1,8 +1,4 @@
-/**
- * 首页
- * Created by y27chen on 2016/10/29.
- */
-import AnimationPage from "../joshua-animation-page";
+import AnimationPage from "../app-base";
 import IdealImageSlider from "../lib/ideal-image-slider";
 import "../lib/ideal-image-slider-bullet-nav";
 

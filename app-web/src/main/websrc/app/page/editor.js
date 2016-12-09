@@ -1,9 +1,4 @@
-/**
- * 文章编辑页面
- * Created by y27chen on 2016/10/29.
- */
-
-import BasePage from "../joshua-base-page";
+import BasePage from "../app-base";
 import Editor from "../component/editor";
 import Dialog from "../component/dialog";
 

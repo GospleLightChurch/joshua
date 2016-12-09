@@ -2,7 +2,6 @@
  * 导航栏模块
  * Created by y27chen on 2016/10/29.
  */
-import "../common";
 import Dialog from "./dialog";
 
 export default class Navigation {
