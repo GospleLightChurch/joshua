@@ -1,4 +1,4 @@
-import AnimationPage from "../app-base";
+import AnimationPage from "../app-front-base";
 import IdealImageSlider from "../lib/ideal-image-slider";
 import "../lib/ideal-image-slider-bullet-nav";
 

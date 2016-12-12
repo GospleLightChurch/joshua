@@ -3,7 +3,7 @@
  * Created by y27chen on 2016/10/29.
  */
 
-import BasePage from "../app-base";
+import BasePage from "../app-front-base";
 import Dialog from "../component/dialog";
 
 class UserInfoPage extends BasePage {

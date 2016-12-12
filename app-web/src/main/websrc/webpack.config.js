@@ -11,6 +11,15 @@ module.exports = {
         joshuaHome: "./app/page/home.js",
         joshuaLogon: "./app/page/logon.js",
         joshuaUserCenter: "./app/page/user-info.js",
+        joshuaAdminArticleAuditor: "./app/page/admin/admin-article-auditor.js",
+        joshuaAdminArticleTable: "./app/page/admin/admin-article-table.js",
+        joshuaAdminFellowshipDetails: "./app/page/admin/admin-fellowship-details.js",
+        joshuaAdminFellowshipTable: "./app/page/admin/admin-fellowship-table.js",
+        joshuaAdminHome: "./app/page/admin/admin-home.js",
+        joshuaAdminMessageTable: "./app/page/admin/admin-message-table.js",
+        joshuaAdminStaticPage: "./app/page/admin/admin-static-home.js",
+        joshuaAdminUserDetails: "./app/page/admin/admin-user-details.js",
+        joshuaAdminUserTable: "./app/page/admin/admin-user-table.js"
     },
     output: {
         path: "../resources/public/assets/js",

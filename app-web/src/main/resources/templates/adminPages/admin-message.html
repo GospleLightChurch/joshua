@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshuaAdminMessageTable')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
 </head>
@@ -14,7 +14,5 @@
     <form class="ui admin user form" th:action="@{/}" th:object="${users}" method="post" style="display: none">
     </form>
 </div>
-
-<script th:replace="fragment/head :: adminScript"></script>
 </body>
 </html>

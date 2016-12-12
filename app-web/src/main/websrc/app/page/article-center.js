@@ -1,4 +1,4 @@
-import BasePage from "../app-base";
+import BasePage from "../app-front-base";
 import Editor from "../component/editor";
 import Dialog from "../component/dialog";
 

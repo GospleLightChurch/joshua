@@ -2,7 +2,7 @@
  * 后端文章列表页面
  * Created by y27chen on 2016/10/29.
  */
-import AdminBasePage from "../../joshua-admin-base-page";
+import AdminBasePage from "../../app-admin-base";
 import Dialog from "../../component/dialog";
 
 class AdminArticleTablePage extends AdminBasePage {

@@ -1,4 +1,4 @@
-import BasePage from "../app-base";
+import BasePage from "../app-front-base";
 import Dialog from "../component/dialog";
 
 class ForgetPage extends BasePage {

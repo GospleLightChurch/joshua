@@ -2,7 +2,7 @@
  * 后端团契详细信息页面
  * Created by y27chen on 2016/10/30.
  */
-import AdminBasePage from "../../joshua-admin-base-page";
+import AdminBasePage from "../../app-admin-base";
 import Dialog from "../../component/dialog";
 
 export default class FellowshipPage extends AdminBasePage {
