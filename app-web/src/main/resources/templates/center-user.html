@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <!--/* 引用基本组件header中的header，head中的元素内容会被基本组件替换掉，这里面的内容仅用于本地测试 */-->
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshuaUserCenter')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
     <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
@@ -26,7 +26,5 @@
 
 <!--/* 引用页脚组件 */-->
 <div th:replace="fragment/footer :: footer">页脚</div>
-<!--/* 引用javascript脚本 */-->
-<script th:src="@{/assets/js/userinfo.js}"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshuaAdminArticleTable')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
 </head>
@@ -16,7 +16,5 @@
     <div th:replace="article/table :: admin-table(${items})"></div>
     <div th:replace="fragment/layout :: csrf"></div>
 </div>
-
-<script th:src="@{/assets/js/adminArticleTable.js}"></script>
 </body>
 </html>

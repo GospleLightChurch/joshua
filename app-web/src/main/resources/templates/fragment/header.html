@@ -5,7 +5,7 @@ HTML 头部基本组件，用于每个页面的头部引用
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <!-- 基本组件标识 -->
-<head th:fragment="head">
+<head th:fragment="head (script)">
 
     <!--/* 定义页面标题，如果页面为定义标题，则使用默认标题 */-->
     <title th:text="${title} ?: #{gyt.title}"></title>
@@ -23,9 +23,6 @@ HTML 头部基本组件，用于每个页面的头部引用
 
     <!--/* 页面图标 */-->
     <link th:href="@{/assets/images/favicon.gif}" rel="icon"/>
-
-    <!--/* 统一CSS样式引用 */-->
-    <link th:href="@{/assets/css/joshua.min.css}" rel="stylesheet"/>
 
     <!--/* 百度统计 */-->
     <script>
@@ -53,7 +50,9 @@ HTML 头部基本组件，用于每个页面的头部引用
             s.parentNode.insertBefore(bp, s);
         })();
     </script>
-</head>
 
-<script th:fragment="script" th:src="@{/assets/js/joshua.js}" charset="UTF-8"></script>
+    <script th:src="@{/assets/js/joshua-common.js}" charset="UTF-8"></script>
+
+    <script th:src="@{|/assets/js/${script}.js|}"></script>
+</head>
 </html>

@@ -1,7 +1,7 @@
 <!--/* 团契首页 - 提摩太团契临时静态页面 */-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshua')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
     <link href="../../../public/assets/css/joshua.min.css" rel="stylesheet"/>
@@ -36,6 +36,6 @@
     </div>
 </div>
 <div th:replace="fragment/footer :: footer">页脚</div>
-<script th:src="@{/assets/js/normal.js}"></script>
+
 </body>
 </html>

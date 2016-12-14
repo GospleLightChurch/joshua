@@ -22,9 +22,9 @@ public class UserInfoPageController {
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
 
-    @RequestMapping("/center")
+    @RequestMapping("/center/user")
     public ModelAndView center() {
-        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("user-center");
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("center-user");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("user", user);
         return modelAndView;

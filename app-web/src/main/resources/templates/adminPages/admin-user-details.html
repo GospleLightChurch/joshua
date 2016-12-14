@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshuaAdminUserDetails')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
 </head>
@@ -34,7 +34,5 @@
         <input type="hidden" th:field="*{username}"/>
     </form>
 </div>
-
-<script th:src="@{/assets/js/adminUserDetails.js}"></script>
 </body>
 </html>

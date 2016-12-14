@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-<head th:replace="fragment/header :: head">
+<head th:replace="fragment/header :: head('joshuaArticle')">
     <meta charset="UTF-8"/>
     <title>光音堂</title>
     <link href="../public/assets/css/joshua.min.css" rel="stylesheet"/>
 </head>
 <body>
-
 <div style="display: none">
     <img th:if="${item.cover == null}" th:src="@{/assets/images/article-cover.jpg}"/>
     <img th:if="${item.cover != null}" th:src="@{'/cover/' + ${item.id}}"/>
@@ -37,7 +36,5 @@
 
 <!--/* 引用页脚组件 */-->
 <div th:replace="fragment/footer :: footer">页脚</div>
-
-<script th:src="@{/assets/js/article.js}"></script>
 </body>
 </html>

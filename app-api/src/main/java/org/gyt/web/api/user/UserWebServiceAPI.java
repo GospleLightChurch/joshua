@@ -24,7 +24,7 @@ public class UserWebServiceAPI {
 
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     public ModelAndView changeInfo(@ModelAttribute User user) {
-        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("redirect:/center?publishSuccess=true");
+        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("redirect:/center/user?publishSuccess=true");
 
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
