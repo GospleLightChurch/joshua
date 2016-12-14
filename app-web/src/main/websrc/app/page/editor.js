@@ -1,3 +1,4 @@
+import "../../css/lib-quill.snow.css";
 import BasePage from "../app-front-base";
 import Editor from "../component/editor";
 import Dialog from "../component/dialog";
