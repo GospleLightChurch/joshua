@@ -1,7 +1,4 @@
-/**
- * 后端首页管理页面
- * Created by y27chen on 2016/10/30.
- */
+import "../../../node_modules/lightgallery/dist/css/lightgallery.css";
 import AdminBasePage from "../../app-admin-base";
 import Dialog from "../../component/dialog";
 import "lightgallery";

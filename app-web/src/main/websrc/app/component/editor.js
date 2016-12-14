@@ -2,6 +2,8 @@
  * 文章编辑器组件
  * Created by y27chen on 2016/10/29.
  */
+import "../../css/lib-quill.snow.css";
+import "../../node_modules/lightgallery/dist/css/lightgallery.css";
 import Quill from "../lib/quill";
 import "../lib/quill-core";
 import "lightgallery";

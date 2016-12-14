@@ -49,7 +49,7 @@ module.exports = {
                 test: /\.scss$/,
                 loader: 'style!css!sass'
             }, {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|gif)$/,
                 loader: 'url',
                 query: {
                     limit: 8192,
