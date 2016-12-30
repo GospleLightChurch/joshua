@@ -110,8 +110,8 @@ public class ArticlePageController {
     }
 
     private void assembleModal(ModelAndView modelAndView, Article article) {
-        modelAndView.addObject("title", article.getTitle());
-        modelAndView.addObject("description", String.format("%s 光音堂", article.getTitle()));
+        modelAndView.addObject("title", String.format("%s_%s_基督教光音堂", article.getTitle(), article.getFellowship().getDisplayName()));
+        modelAndView.addObject("description", String.format("%s_%s_基督教光音堂", article.getTitle(), article.getFellowship().getDisplayName()));
         modelAndView.addObject("item", article);
         modelAndView.addObject("user", article.getAuthor());
 

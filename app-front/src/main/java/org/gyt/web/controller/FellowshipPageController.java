@@ -33,7 +33,7 @@ public class FellowshipPageController {
         filterSpecialPage(modelAndView, name);
 
         Fellowship fellowship = fellowshipService.get(name);
-        modelAndView.addObject("title", String.format("基督教光音堂 - %s", fellowship.getDisplayName()));
+        modelAndView.addObject("title", String.format("%s_基督教光音堂", fellowship.getDisplayName()));
 
         List<Article> articles = fellowship.getArticles();
         articles.sort((o1, o2) -> o2.getLastModifiedTime().compareTo(o1.getLastModifiedTime()));
