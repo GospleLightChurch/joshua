@@ -7,6 +7,8 @@ import org.gyt.web.model.ArticleStatus;
 import org.gyt.web.model.User;
 import org.gyt.web.repository.repository.ArticleRepository;
 import org.gyt.web.repository.repository.FellowshipRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
  */
 @RestController
 public class ArticlePageController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArticlePageController.class);
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -100,10 +104,13 @@ public class ArticlePageController {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("article");
         Article article = articleRepository.findOne(id);
 
+
         if (null == article || article.isDisable() || !article.getStatus().equals(ArticleStatus.PUBLISHED)) {
             modelAndViewUtils.convertTo404(modelAndView, "文章不存在或者未发布");
+            LOGGER.info("访问文章 {}", id);
         } else {
             assembleModal(modelAndView, article);
+            LOGGER.info("访问文章 {} {}", id, article.getTitle());
         }
 
         return modelAndView;
