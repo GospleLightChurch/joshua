@@ -7,6 +7,8 @@ import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Fellowship;
 import org.gyt.web.model.Message;
 import org.gyt.web.model.MessageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
  */
 @RestController
 public class StaticPageController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StaticPageController.class);
 
     @Autowired
     private ArticleService articleService;
@@ -40,6 +44,9 @@ public class StaticPageController {
         modelAndView.addObject("churchArticles", articleService.getChurchArticles());
         modelAndView.addObject("fellowshipArticles", articleService.getFellowshipArticles());
         modelAndView.addObject("imageGallery", slidePictureService.list());
+
+        LOGGER.info("访问首页");
+
         return modelAndView;
     }
 
@@ -57,7 +64,8 @@ public class StaticPageController {
     @RequestMapping("/bible")
     public ModelAndView biblePage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/biblePage");
-        modelAndView.addObject("title", "在线圣经");
+        modelAndView.addObject("title", "在线圣经_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -65,7 +73,8 @@ public class StaticPageController {
     @RequestMapping("/believe")
     public ModelAndView christBelievePage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/christBelievePage");
-        modelAndView.addObject("title", "基督信仰");
+        modelAndView.addObject("title", "基督信仰_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -78,7 +87,7 @@ public class StaticPageController {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/contactPage");
         Message message = new Message();
         message.setType(MessageType.SUFFRAGE);
-        modelAndView.addObject("title", "联系我们");
+        modelAndView.addObject("title", "联系我们_基督教光音堂");
         modelAndView.addObject("message", message);
         modelAndView.addObject("fellowships", fellowshipService.getAll().stream().filter(fellowship ->
                 fellowship.isEnable() &&
@@ -91,6 +100,7 @@ public class StaticPageController {
         ).collect(Collectors.toList()));
         modelAndView.addObject("publishSuccess", publishSuccess);
         modelAndView.addObject("publishFailed", publishFailed);
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -98,7 +108,8 @@ public class StaticPageController {
     @RequestMapping("/devotion")
     public ModelAndView devotionPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/devotionPage");
-        modelAndView.addObject("title", "奉献捐赠");
+        modelAndView.addObject("title", "奉献捐赠_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -106,7 +117,8 @@ public class StaticPageController {
     @RequestMapping("/fellowship")
     public ModelAndView groupPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/fellowshipPage");
-        modelAndView.addObject("title", "团契生活");
+        modelAndView.addObject("title", "团契生活_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -114,7 +126,8 @@ public class StaticPageController {
     @RequestMapping("/about")
     public ModelAndView introductionPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/introductionPage");
-        modelAndView.addObject("title", "教堂简介");
+        modelAndView.addObject("title", "教堂简介_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -122,7 +135,8 @@ public class StaticPageController {
     @RequestMapping("/wedding")
     public ModelAndView marriagePage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/weddingPage");
-        modelAndView.addObject("title", "教堂婚礼");
+        modelAndView.addObject("title", "教堂婚礼_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -130,23 +144,17 @@ public class StaticPageController {
     @RequestMapping("/media")
     public ModelAndView mediaPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/mediaPage");
-        modelAndView.addObject("title", "媒体资源");
+        modelAndView.addObject("title", "媒体资源_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
-
-    /* 新人 */
-//    @RequestMapping("/newcomer")
-//    public ModelAndView newComerPage() {
-//        ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/newComerPage");
-//        modelAndView.addObject("title", "新人");
-//        return modelAndView;
-//    }
 
     /* 主任牧师 */
     @RequestMapping("/pastor")
     public ModelAndView pastorPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/pastorPage");
-        modelAndView.addObject("title", "主任牧师");
+        modelAndView.addObject("title", "主任牧师_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -155,8 +163,9 @@ public class StaticPageController {
     public ModelAndView publicPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/publicPage");
         Fellowship fellowship = fellowshipService.get("public");
-        modelAndView.addObject("title", "公益活动");
+        modelAndView.addObject("title", "公益活动_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -165,8 +174,9 @@ public class StaticPageController {
     public ModelAndView recommendPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/recommendPage");
         Fellowship fellowship = fellowshipService.get("recommend");
-        modelAndView.addObject("title", "好文推荐");
+        modelAndView.addObject("title", "好文推荐_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -175,8 +185,9 @@ public class StaticPageController {
     public ModelAndView reportPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/reportPage");
         Fellowship fellowship = fellowshipService.get("report");
-        modelAndView.addObject("title", "事工报告");
+        modelAndView.addObject("title", "事工报告_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -184,7 +195,8 @@ public class StaticPageController {
     @RequestMapping("/service")
     public ModelAndView servicePage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/servicePage");
-        modelAndView.addObject("title", "主内服侍");
+        modelAndView.addObject("title", "主内服侍_基督教光音堂");
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -193,8 +205,9 @@ public class StaticPageController {
     public ModelAndView suffragePage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/suffragePage");
         Fellowship fellowship = fellowshipService.get("suffrage");
-        modelAndView.addObject("title", "教会代祷");
+        modelAndView.addObject("title", "教会代祷_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -203,8 +216,9 @@ public class StaticPageController {
     public ModelAndView sundaySchoolPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/sundaySchoolPage");
         Fellowship fellowship = fellowshipService.get("sunday");
-        modelAndView.addObject("title", "主日学");
+        modelAndView.addObject("title", "主日学_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -213,8 +227,9 @@ public class StaticPageController {
     public ModelAndView testimonyPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/testimonyPage");
         Fellowship fellowship = fellowshipService.get("testimony");
-        modelAndView.addObject("title", "见证分享");
+        modelAndView.addObject("title", "见证分享_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 
@@ -223,8 +238,9 @@ public class StaticPageController {
     public ModelAndView worshipPage() {
         ModelAndView modelAndView = modelAndViewUtils.newModelAndView("staticPage/worshipPage");
         Fellowship fellowship = fellowshipService.get("worship");
-        modelAndView.addObject("title", "主日崇拜");
+        modelAndView.addObject("title", "主日崇拜_基督教光音堂");
         modelAndView.addObject("items", fellowship.getArticles());
+        LOGGER.info("访问静态页面 {}", modelAndView.getModel().get("title"));
         return modelAndView;
     }
 }

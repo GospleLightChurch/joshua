@@ -4,6 +4,8 @@ import org.gyt.web.core.service.FellowshipService;
 import org.gyt.web.core.utils.ModelAndViewUtils;
 import org.gyt.web.model.Article;
 import org.gyt.web.model.Fellowship;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequestMapping("/fellowship")
 public class FellowshipPageController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FellowshipPageController.class);
+
     @Autowired
     private FellowshipService fellowshipService;
 
@@ -33,11 +37,13 @@ public class FellowshipPageController {
         filterSpecialPage(modelAndView, name);
 
         Fellowship fellowship = fellowshipService.get(name);
-        modelAndView.addObject("title", String.format("基督教光音堂 - %s", fellowship.getDisplayName()));
+        modelAndView.addObject("title", String.format("%s_基督教光音堂", fellowship.getDisplayName()));
 
         List<Article> articles = fellowship.getArticles();
         articles.sort((o1, o2) -> o2.getLastModifiedTime().compareTo(o1.getLastModifiedTime()));
         modelAndView.addObject("items", articles);
+
+        LOGGER.info("访问团契 {}", fellowship.getDisplayName());
 
         return modelAndView;
     }
