@@ -40,6 +40,9 @@
             </div>
         </div>
     </div>
+    <div th:if="${not #lists.isEmpty(items)}">
+        <div th:replace="fragment/pagination :: basic"></div>
+    </div>
 </div>
 
 <!-- 前端文章列表 - 列表项 -->
