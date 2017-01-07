@@ -20,7 +20,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findByAuthorOrderByStatusDescLastModifiedTimeDesc(Pageable pageable, User author);
 
-    @Query("select article from Article article where article.fellowship = :fellowship and article.status = 'PUBLISHED'")
+    @Query("select article from Article article where article.fellowship = :fellowship and article.status = 'PUBLISHED' order by article.lastModifiedTime desc ")
     Page<Article> findByFellowshipOrderByLastModifiedTimeDesc(Pageable pageable, @Param("fellowship") Fellowship fellowship);
 
     List<Article> findTop5ByOrderByPageViewDesc();
